@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { topicsService } from "../../service/topicsService";
+import { TopicsService } from "../../service/topicsService";
 
 export const AdminView = () => {
   const [topics, setTopics] = useState([]);
@@ -8,7 +8,7 @@ export const AdminView = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const service = new topicsService();
+    const service = new TopicsService();
     (async () => {
       const data = await service.getAll();
       setTopics(data);
@@ -42,7 +42,7 @@ export const AdminView = () => {
             manage questions{" "}
           </button>
           <button
-            onClick={() => navigate("manage-tests")}
+            onClick={() => navigate(`manage-tests/${selectedTopic}`)}
             disabled={selectedTopic === "None"}
           >
             manage tests{" "}

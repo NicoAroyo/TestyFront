@@ -17,58 +17,40 @@
       "name": "Sql"
     }
   ],
-
   "users": [
     {
       "id": 1,
-
       "name": "Momo",
-
       "password": "momo123",
-
       "email": "momo.small.feet@gmail.com",
-
       "isAdmin": true,
       "isRegistered": true
     },
     {
       "id": 2,
-
       "name": "Tsvi Bekker",
-
       "password": "tsvi123",
-
       "email": "bekkertsvii@gmail.com",
-
       "isAdmin": true,
       "isRegistered": true
     },
     {
       "id": 3,
-
       "name": "Nico Aroyo",
-
       "password": "nico123",
-
       "email": "nico.aroyo@gmail.com",
-
       "isAdmin": true,
       "isRegistered": true
     },
     {
       "id": 4,
-
       "name": "Roy Rachmany",
-
       "password": "roy123",
-
       "email": "roy@sela.co.il",
-
       "isAdmin": false,
       "isRegistered": true
     }
   ],
-
   "questions": [
     {
       "id": 1,
@@ -152,6 +134,40 @@
       "name": "Azure",
       "passText": "press 2",
       "failText": "press 3"
+    },
+    {
+      "topicId": "1",
+      "name": "aaa",
+      "passingGrade": "2",
+      "showAnswers": true,
+      "instructions": "aa",
+      "passText": "aa",
+      "failText": "aa",
+      "questions": [1, 2],
+      "id": 5
+    },
+    {
+      "topicId": "1",
+      "name": "1",
+      "passingGrade": "1",
+      "showAnswers": true,
+      "instructions": "1",
+      "passText": "1",
+      "failText": "1",
+      "questions": [1, 2],
+      "id": 6
+    },
+    {
+      "topicId": "1",
+      "language": "eng",
+      "name": "123",
+      "passingGrade": "123",
+      "showAnswers": true,
+      "instructions": "123",
+      "passText": "123",
+      "failText": "123",
+      "questions": [1, 2],
+      "id": 7
     }
   ]
 }
