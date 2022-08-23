@@ -7,6 +7,7 @@ import { ManageQuestionsView } from "./views/admin/ManageQuestionsView";
 import { Reports } from "./views/admin/Reports";
 import { Home } from "./views/Home";
 import { Login } from "./views/Login";
+import { AddQuestionView } from "./views/admin/AddQuestionView";
 
 export const App = () => {
   return (
@@ -21,6 +22,7 @@ export const App = () => {
           path="admin/manage-questions"
           element={<ManageQuestionsView />}
         ></Route>
+        <Route path="admin/manage-questions/add" element={<AddQuestionView/>}></Route>
       </Routes>
     </>
   );
