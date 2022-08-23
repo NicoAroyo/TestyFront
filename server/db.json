@@ -1,167 +1,157 @@
 {
-    "Topics" : [
-        {
-        "Id" : 1,
-        "Name" : "Development"
-        },
-        {
-         "Id" : 2,
-         "Name" : "C#"
-        },
-        {
-        "Id" : 3,
-        "Name" : "Azure"
-        },
-        {
-        "Id" : 4,
-        "Name" : "Sql"
-        }
+  "topics": [
+    {
+      "id": 1,
+      "name": "Development"
+    },
+    {
+      "id": 2,
+      "name": "C#"
+    },
+    {
+      "id": 3,
+      "name": "Azure"
+    },
+    {
+      "id": 4,
+      "name": "Sql"
+    }
+  ],
 
-    ],
-    "Users" : [
-        {
-            "Id" :1,
-            
-            "Name" : "Momo",
+  "users": [
+    {
+      "id": 1,
 
-            "Password" : "momo123",
-             
-            "E-mail" : "momo.small.feet@gmail.com",
+      "name": "Momo",
 
-            "IsAdmin" : true,
-            "IsRegistered" : true
+      "password": "momo123",
 
-        },
-        {
-            "Id" : 2,
-            
-            "Name" : "Tsvi Bekker",
+      "email": "momo.small.feet@gmail.com",
 
-            "Password" : "tsvi123",
-             
-            "E-mail" : "bekkertsvii@gmail.com",
+      "isAdmin": true,
+      "isRegistered": true
+    },
+    {
+      "id": 2,
 
-            "IsAdmin" : true,
-            "IsRegistered" : true
+      "name": "Tsvi Bekker",
 
-        },
-        {
-            "Id" : 3,
-            
-            "Name" : "Nico Aroyo",
+      "password": "tsvi123",
 
-            "Password" : "nico123",
-             
-            "E-mail" : "nico.aroyo@gmail.com" ,
+      "email": "bekkertsvii@gmail.com",
 
-            "IsAdmin" : true,
-            "IsRegistered" : true
+      "isAdmin": true,
+      "isRegistered": true
+    },
+    {
+      "id": 3,
 
-        },
-        {
-            "Id" : 4,
-            
-            "Name" : "Roy Rachmany",
+      "name": "Nico Aroyo",
 
-            "Password" : "roy123",
-             
-            "E-mail" : "roy@sela.co.il" ,
+      "password": "nico123",
 
-            "IsAdmin" : false,
-            "IsRegistered" : true
+      "email": "nico.aroyo@gmail.com",
 
-        }
+      "isAdmin": true,
+      "isRegistered": true
+    },
+    {
+      "id": 4,
 
-    ],
+      "name": "Roy Rachmany",
 
-    "Questions" :[
-        {
-        "Id" : 1,
-        "TopicId" : 1,
-        "Content" : "What was the best year?",
-        "Type" : "SingleChoice",
-        "DisplayVertically" : true,
-        "Answers" : ["1984" , "2005" , "2019" ,"1782"],
-        "Tags" : ["year" , "subjective"],
-        "CorrectAnswer" : ["1984"],
-        "AllowExplanation" : false
-        },
-        {
-        "Id" : 2,
-        "TopicId":1,
-        "Content" : "Where is Waldo?",
-        "Type" : "SingleChoice",
-        "DisplayVertically" : false,
-        "Answers" : ["there", "no, hes over there", "right here", "there2"],
-         "Tags" : ["Waldo"],
-         "CorrectAnswer" : ["there2"],
-        "AllowExplanation" : false
-        },
-        {
-        "Id" : 3,
-        "TopicId":2,
-        "Content" : "How has your day been?",
-        "Type" : "MultipleChoice" ,
-        "DisplayVertically" : true,
-        "Answers" : ["Good" , "Alright", "Fine", "Awful"],
-        "Tags" : ["Care", "Mood"],
-        "CorrectAnswer" : ["Alright" , "Fine"],
-        "AllowExplanation" : true
-        }
-        
-    ], 
-    "Quiz" : [
-        {
-        "Id" : 1, 
-        "Questions" : [1,2], 
-        "PassingGrade" : 50, 
-        "UserId" : 2, 
-        "TopicId" : 1,
-        "Language": "heb",
-        "Instructions" : "Take your time",
-        "Name" : "Development Test",
-        "PassText" : "Congrats",
-        "FailText" : "Your parents have disowned you"
-        }, 
-        {
-        "Id" :2 , 
-        "Questions" : [2,4], 
-        "PassingGrade" : 75, 
-        "UserId" : 3, 
-        "TopicId" : 3,
-        "Language": "eng",
-        "Instructions" : "HAVE FUN",
-        "Name" : "wowza",
-        "PassText" : "aye",
-        "FailText" : "lmao"
-        },
-        {
-        "Id" : 3, 
-        "Questions" : [2], 
-        "PassingGrade" : 100 , 
-        "UserId" : 1, 
-        "TopicId" : 1,
-        "Language": "heb",
-        "Instructions" : "blep",
-        "Name" : "beep",
-        "PassText" : "bop",
-        "FailText" : "bap"
-        },
-        {
-        "Id" : 4, 
-        "Questions" : [3], 
-        "PassingGrade" : 10, 
-        "UserId" : 4, 
-        "TopicId" : 3,
-        "Language": "eng",
-        "Instructions" : "press 1",
-        "Name" : "Azure",
-        "PassText" : "press 2",
-        "FailText" : "press 3"
-        }
+      "password": "roy123",
 
-    ]
-    
-    
-    
+      "email": "roy@sela.co.il",
+
+      "isAdmin": false,
+      "isRegistered": true
+    }
+  ],
+
+  "questions": [
+    {
+      "id": 1,
+      "topicId": 1,
+      "content": "What was the best year?",
+      "type": "SingleChoice",
+      "displayVertically": true,
+      "answers": ["1984", "2005", "2019", "1782"],
+      "tags": ["year", "subjective"],
+      "carrectAnswer": ["1984"],
+      "allowExplanation": false
+    },
+    {
+      "id": 2,
+      "topicId": 1,
+      "content": "Where is Waldo?",
+      "type": "SingleChoice",
+      "displayVertically": false,
+      "answers": ["there", "no, hes over there", "right here", "there2"],
+      "tags": ["Waldo"],
+      "carrectAnswer": ["there2"],
+      "allowExplanation": false
+    },
+    {
+      "id": 3,
+      "topicId": 2,
+      "content": "How has your day been?",
+      "type": "MultipleChoice",
+      "displayVertically": true,
+      "answers": ["Good", "Alright", "Fine", "Awful"],
+      "tags": ["Care", "Mood"],
+      "carrectAnswer": ["Alright", "Fine"],
+      "allowExplanation": true
+    }
+  ],
+  "quiz": [
+    {
+      "id": 1,
+      "questions": [1, 2],
+      "passingGrade": 50,
+      "userId": 2,
+      "topicId": 1,
+      "language": "heb",
+      "instructions": "Take your time",
+      "name": "Development Test",
+      "passText": "Congrats",
+      "failText": "Your parents have disowned you"
+    },
+    {
+      "id": 2,
+      "questions": [2, 4],
+      "passingGrade": 75,
+      "userId": 3,
+      "topicId": 3,
+      "language": "eng",
+      "instructions": "HAVE FUN",
+      "name": "wowza",
+      "passText": "aye",
+      "failText": "lmao"
+    },
+    {
+      "id": 3,
+      "questions": [2],
+      "passingGrade": 100,
+      "userId": 1,
+      "topicId": 1,
+      "language": "heb",
+      "instructions": "blep",
+      "name": "beep",
+      "passText": "bop",
+      "failText": "bap"
+    },
+    {
+      "id": 4,
+      "questions": [3],
+      "passingGrade": 10,
+      "userId": 4,
+      "topicId": 3,
+      "language": "eng",
+      "instructions": "press 1",
+      "name": "Azure",
+      "passText": "press 2",
+      "failText": "press 3"
+    }
+  ]
 }

@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { topicsService } from "../../service/topicsService";
 
 export const AdminView = () => {
-  const [options, setOptions] = useState([]);
+  const [topics, setTopics] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState("None");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const service = new topicsService();
+    (async () => {
+      const data = await service.getAll();
+      setTopics(data);
+    })();
+  }, []);
 
   return (
     <>
@@ -15,18 +24,35 @@ export const AdminView = () => {
             defaultValue={"None"}
             onChange={(e) => setSelectedTopic(e.target.value)}
           >
-            <option value="None">None</option>
-            <option value="Development">Development</option>
-            <option value="Coding">Coding</option>
-            <option value="React">React</option>
-            <option value="C#">C#</option>
-            <option value="Cloud">Cloud</option>
+            <option>None</option>;
+            {topics.map((topic) => {
+              return (
+                <option key={topic.id} value={topic.id}>
+                  {topic.name}
+                </option>
+              );
+            })}
           </select>
         </form>
         <div>
-          <button disabled={selectedTopic === "None"}>manage questions </button>
-          <button disabled={selectedTopic === "None"}>manage tests </button>
-          <button disabled={selectedTopic === "None"}>reports</button>
+          <button
+            onClick={() => navigate("manage-questions")}
+            disabled={selectedTopic === "None"}
+          >
+            manage questions{" "}
+          </button>
+          <button
+            onClick={() => navigate("manage-tests")}
+            disabled={selectedTopic === "None"}
+          >
+            manage tests{" "}
+          </button>
+          <button
+            onClick={() => navigate("reports")}
+            disabled={selectedTopic === "None"}
+          >
+            reports
+          </button>
         </div>
       </div>
     </>
