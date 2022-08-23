@@ -1,0 +1,167 @@
+{
+    "Topics" : [
+        {
+        "Id" : 1,
+        "Name" : "Development"
+        },
+        {
+         "Id" : 2,
+         "Name" : "C#"
+        },
+        {
+        "Id" : 3,
+        "Name" : "Azure"
+        },
+        {
+        "Id" : 4,
+        "Name" : "Sql"
+        }
+
+    ],
+    "Users" : [
+        {
+            "Id" :1,
+            
+            "Name" : "Momo",
+
+            "Password" : "momo123",
+             
+            "E-mail" : "momo.small.feet@gmail.com",
+
+            "IsAdmin" : true,
+            "IsRegistered" : true
+
+        },
+        {
+            "Id" : 2,
+            
+            "Name" : "Tsvi Bekker",
+
+            "Password" : "tsvi123",
+             
+            "E-mail" : "bekkertsvii@gmail.com",
+
+            "IsAdmin" : true,
+            "IsRegistered" : true
+
+        },
+        {
+            "Id" : 3,
+            
+            "Name" : "Nico Aroyo",
+
+            "Password" : "nico123",
+             
+            "E-mail" : "nico.aroyo@gmail.com" ,
+
+            "IsAdmin" : true,
+            "IsRegistered" : true
+
+        },
+        {
+            "Id" : 4,
+            
+            "Name" : "Roy Rachmany",
+
+            "Password" : "roy123",
+             
+            "E-mail" : "roy@sela.co.il" ,
+
+            "IsAdmin" : false,
+            "IsRegistered" : true
+
+        }
+
+    ],
+
+    "Questions" :[
+        {
+        "Id" : 1,
+        "TopicId" : 1,
+        "Content" : "What was the best year?",
+        "Type" : "SingleChoice",
+        "DisplayVertically" : true,
+        "Answers" : ["1984" , "2005" , "2019" ,"1782"],
+        "Tags" : ["year" , "subjective"],
+        "CorrectAnswer" : ["1984"],
+        "AllowExplanation" : false
+        },
+        {
+        "Id" : 2,
+        "TopicId":1,
+        "Content" : "Where is Waldo?",
+        "Type" : "SingleChoice",
+        "DisplayVertically" : false,
+        "Answers" : ["there", "no, hes over there", "right here", "there2"],
+         "Tags" : ["Waldo"],
+         "CorrectAnswer" : ["there2"],
+        "AllowExplanation" : false
+        },
+        {
+        "Id" : 3,
+        "TopicId":2,
+        "Content" : "How has your day been?",
+        "Type" : "MultipleChoice" ,
+        "DisplayVertically" : true,
+        "Answers" : ["Good" , "Alright", "Fine", "Awful"],
+        "Tags" : ["Care", "Mood"],
+        "CorrectAnswer" : ["Alright" , "Fine"],
+        "AllowExplanation" : true
+        }
+        
+    ], 
+    "Quiz" : [
+        {
+        "Id" : 1, 
+        "Questions" : [1,2], 
+        "PassingGrade" : 50, 
+        "UserId" : 2, 
+        "TopicId" : 1,
+        "Language": "heb",
+        "Instructions" : "Take your time",
+        "Name" : "Development Test",
+        "PassText" : "Congrats",
+        "FailText" : "Your parents have disowned you"
+        }, 
+        {
+        "Id" :2 , 
+        "Questions" : [2,4], 
+        "PassingGrade" : 75, 
+        "UserId" : 3, 
+        "TopicId" : 3,
+        "Language": "eng",
+        "Instructions" : "HAVE FUN",
+        "Name" : "wowza",
+        "PassText" : "aye",
+        "FailText" : "lmao"
+        },
+        {
+        "Id" : 3, 
+        "Questions" : [2], 
+        "PassingGrade" : 100 , 
+        "UserId" : 1, 
+        "TopicId" : 1,
+        "Language": "heb",
+        "Instructions" : "blep",
+        "Name" : "beep",
+        "PassText" : "bop",
+        "FailText" : "bap"
+        },
+        {
+        "Id" : 4, 
+        "Questions" : [3], 
+        "PassingGrade" : 10, 
+        "UserId" : 4, 
+        "TopicId" : 3,
+        "Language": "eng",
+        "Instructions" : "press 1",
+        "Name" : "Azure",
+        "PassText" : "press 2",
+        "FailText" : "press 3"
+        }
+
+    ]
+    
+    
+    
+}
