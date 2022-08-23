@@ -1,5 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  return <h1>Login Screen x)</h1>;
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <h1>Login Screen x)</h1>
+      <button onClick={() => navigate("/admin")}>login</button>
+    </>
+  );
 };
