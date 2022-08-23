@@ -1,13 +1,16 @@
 import React from "react";
-import { Counter } from "./components/Counter";
-import { HelloText } from "./components/HelloText";
+import { Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { Home } from "./Views/Home";
+import { Login } from "./Views/Login";
 
 export const App = () => {
   return (
     <>
-      <div>JSX</div>
-      <HelloText></HelloText>
-      <Counter></Counter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="login" element={<Login />}></Route>
+      </Routes>
     </>
   );
 };
