@@ -1,6 +1,6 @@
 import { API_URL } from "../utils/constants";
 
-export class quizService {
+export class QuizService {
   #url = API_URL + "quiz/";
   async getAll() {
     const response = await fetch(this.#url);

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { quizService } from "../../service/quizService";
+import { useNavigate, useParams } from "react-router-dom";
+import { QuizService } from "../../service/quizService";
 
 export const ManageTestsView = () => {
   const [tests, setTests] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const service = new quizService();
+    const service = new QuizService();
     (async () => {
       const data = await service.getAll();
       console.log(data);
@@ -16,7 +18,8 @@ export const ManageTestsView = () => {
   return (
     <>
       <div>ManageTestsView</div>
-      <button>Add a new test x)</button>
+      <button onClick={() => navigate("add")}>Add a new test x)</button>
+      <button>go back lol</button>
       <h2>Quiz List:</h2>
       <table>
         <thead>
@@ -35,6 +38,13 @@ export const ManageTestsView = () => {
                 <td>{test.name}</td>
                 <td>{test.questions.length}</td>
                 <td>{test.passingGrade}</td>
+                <td>
+                  <div>
+                    <button>edit</button>
+                    <button>duplicate</button>
+                    <p>active</p>
+                  </div>
+                </td>
               </tr>
             );
           })}

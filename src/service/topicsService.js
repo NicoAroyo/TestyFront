@@ -1,6 +1,6 @@
 import { API_URL } from "../utils/constants";
 
-export class topicsService {
+export class TopicsService {
   #url = API_URL + "topics/";
 
   async getAll() {
