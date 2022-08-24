@@ -58,9 +58,19 @@
       "content": "What was the best year?",
       "type": "SingleChoice",
       "displayVertically": true,
-      "answers": ["1984", "2005", "2019", "1782"],
-      "tags": ["year", "subjective"],
-      "carrectAnswer": ["1984"],
+      "answers": [
+        "1984",
+        "2005",
+        "2019",
+        "1782"
+      ],
+      "tags": [
+        "year",
+        "subjective"
+      ],
+      "carrectAnswer": [
+        "1984"
+      ],
       "allowExplanation": false
     },
     {
@@ -69,9 +79,18 @@
       "content": "Where is Waldo?",
       "type": "SingleChoice",
       "displayVertically": false,
-      "answers": ["there", "no, hes over there", "right here", "there2"],
-      "tags": ["Waldo"],
-      "carrectAnswer": ["there2"],
+      "answers": [
+        "there",
+        "no, hes over there",
+        "right here",
+        "there2"
+      ],
+      "tags": [
+        "Waldo"
+      ],
+      "carrectAnswer": [
+        "there2"
+      ],
       "allowExplanation": false
     },
     {
@@ -80,16 +99,30 @@
       "content": "How has your day been?",
       "type": "MultipleChoice",
       "displayVertically": true,
-      "answers": ["Good", "Alright", "Fine", "Awful"],
-      "tags": ["Care", "Mood"],
-      "carrectAnswer": ["Alright", "Fine"],
+      "answers": [
+        "Good",
+        "Alright",
+        "Fine",
+        "Awful"
+      ],
+      "tags": [
+        "Care",
+        "Mood"
+      ],
+      "carrectAnswer": [
+        "Alright",
+        "Fine"
+      ],
       "allowExplanation": true
     }
   ],
   "quiz": [
     {
       "id": 1,
-      "questions": [1, 2],
+      "questions": [
+        1,
+        2
+      ],
       "passingGrade": 50,
       "userId": 2,
       "topicId": 1,
@@ -101,7 +134,10 @@
     },
     {
       "id": 2,
-      "questions": [2, 4],
+      "questions": [
+        2,
+        4
+      ],
       "passingGrade": 75,
       "userId": 3,
       "topicId": 3,
@@ -113,7 +149,9 @@
     },
     {
       "id": 3,
-      "questions": [2],
+      "questions": [
+        2
+      ],
       "passingGrade": 100,
       "userId": 1,
       "topicId": 1,
@@ -125,7 +163,9 @@
     },
     {
       "id": 4,
-      "questions": [3],
+      "questions": [
+        3
+      ],
       "passingGrade": 10,
       "userId": 4,
       "topicId": 3,
@@ -136,29 +176,35 @@
       "failText": "press 3"
     },
     {
-      "topicId": "1",
+      "topicId": 1,
       "name": "aaa",
       "passingGrade": "2",
       "showAnswers": true,
       "instructions": "aa",
       "passText": "aa",
       "failText": "aa",
-      "questions": [1, 2],
+      "questions": [
+        1,
+        2
+      ],
       "id": 5
     },
     {
-      "topicId": "1",
+      "topicId": 1,
       "name": "1",
       "passingGrade": "1",
       "showAnswers": true,
       "instructions": "1",
       "passText": "1",
       "failText": "1",
-      "questions": [1, 2],
+      "questions": [
+        1,
+        2
+      ],
       "id": 6
     },
     {
-      "topicId": "1",
+      "topicId": 1,
       "language": "eng",
       "name": "123",
       "passingGrade": "123",
@@ -166,8 +212,26 @@
       "instructions": "123",
       "passText": "123",
       "failText": "123",
-      "questions": [1, 2],
+      "questions": [
+        1,
+        2
+      ],
       "id": 7
+    },
+    {
+      "topicId": 2,
+      "language": "eng",
+      "name": "C# for dummies",
+      "passingGrade": "12",
+      "showAnswers": true,
+      "instructions": "ha",
+      "passText": "ha",
+      "failText": "ha",
+      "questions": [
+        1,
+        2
+      ],
+      "id": 8
     }
   ]
 }

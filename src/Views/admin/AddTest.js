@@ -6,13 +6,16 @@ import { TopicsService } from "../../service/topicsService";
 export const AddTest = () => {
   const { topicId } = useParams();
   const [topic, setTopic] = useState("");
-  const [newTest, setNewTest] = useState({ topicId: topicId, language: "eng" });
+  const [newTest, setNewTest] = useState({
+    topicId: +topicId,
+    language: "eng",
+  });
 
   useEffect(() => {
     const topicService = new TopicsService();
     //IIFE - immediately invoked function expression
     (async () => {
-      const topic = await topicService.getByIdAsync(topicId);
+      const topic = await topicService.getByIdAsync(+topicId);
       setTopic(topic.name);
     })();
   }, []);

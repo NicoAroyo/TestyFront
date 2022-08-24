@@ -5,13 +5,13 @@ import { QuizService } from "../../service/quizService";
 export const ManageTestsView = () => {
   const [tests, setTests] = useState([]);
   const navigate = useNavigate();
+  const { topicId } = useParams();
 
   useEffect(() => {
     const service = new QuizService();
     (async () => {
       const data = await service.getAll();
-      console.log(data);
-      setTests(data);
+      setTests(data.filter((q) => q.topicId === +topicId));
     })();
   }, []);
 
