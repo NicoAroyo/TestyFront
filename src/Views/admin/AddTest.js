@@ -10,6 +10,7 @@ export const AddTest = () => {
 
   useEffect(() => {
     const topicService = new TopicsService();
+    //IIFE - immediately invoked function expression
     (async () => {
       const topic = await topicService.getByIdAsync(topicId);
       setTopic(topic.name);

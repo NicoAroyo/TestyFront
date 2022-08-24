@@ -16,15 +16,19 @@ export const App = () => {
         <Route path="/" element={<Home />}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="admin" element={<AdminView />}></Route>
+
         <Route
           path="admin/manage-tests/:topicId"
           element={<ManageTestsView />}
         ></Route>
+
         <Route
           path="admin/manage-tests/:topicId/add"
           element={<AddTest />}
         ></Route>
+
         <Route path="admin/reports" element={<Reports />}></Route>
+
         <Route
           path="admin/manage-questions"
           element={<ManageQuestionsView />}
