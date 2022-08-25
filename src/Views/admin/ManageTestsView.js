@@ -19,7 +19,7 @@ export const ManageTestsView = () => {
     <>
       <div>ManageTestsView</div>
       <button onClick={() => navigate("add")}>Add a new test x)</button>
-      <button>go back lol</button>
+      <button onClick={() => navigate(-1)}>go back lol</button>
       <h2>Quiz List:</h2>
       <table>
         <thead>
@@ -50,6 +50,7 @@ export const ManageTestsView = () => {
           })}
         </tbody>
       </table>
+     
     </>
   );
 };

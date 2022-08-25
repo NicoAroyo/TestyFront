@@ -7,7 +7,7 @@ export const Home = () => {
   return (
     <div>
       <button onClick={() => navigate("login")}>Log in as admin</button>
-      <button>continue as student</button>
+      <button onClick={()=> navigate("choose-test")}>continue as student</button>
     </div>
   );
 };

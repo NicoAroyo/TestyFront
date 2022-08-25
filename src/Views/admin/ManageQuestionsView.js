@@ -23,7 +23,8 @@ export const ManageQuestionsView = () => {
   return (
     <>
       <div>ManageQuestionsView</div>
-      <button onClick={() => navigate("add")}> add question</button>
+      <button onClick={() => navigate("add")}> add question uwu</button>
+      <button onClick={() => navigate(-1)}>go back lol</button>
       <h2>Questions List:</h2>
       <table>
         <thead>
@@ -46,6 +47,7 @@ export const ManageQuestionsView = () => {
           })}
         </tbody>
       </table>
+      
     </>
   );
 };

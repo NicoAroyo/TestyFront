@@ -9,6 +9,8 @@ import { Home } from "./views/Home";
 import { Login } from "./views/Login";
 import { AddQuestionView } from "./views/admin/AddQuestionView";
 import { AddTest } from "./views/admin/AddTest";
+import { ChooseTestView } from "./views/taketest/ChooseTestView";
+import { TakeTestView } from "./views/taketest/TakeTestView";
 
 export const App = () => {
   return (
@@ -37,6 +39,14 @@ export const App = () => {
         <Route
           path="admin/manage-questions/add"
           element={<AddQuestionView />}
+        ></Route>
+        <Route
+          path="choose-test"
+          element={<ChooseTestView />}
+        ></Route>
+        <Route
+          path="take-test/:testId"
+          element={<TakeTestView />}
         ></Route>
       </Routes>
     </>
