@@ -18,6 +18,7 @@ export const AdminView = () => {
   return (
     <>
       <div>
+      <button onClick={() => navigate(-1)}>Back</button>
         <form>
           <label>Choose a topic</label>
           <select

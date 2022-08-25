@@ -8,6 +8,7 @@ export const Login = () => {
     <>
       <h1>Login Screen x)</h1>
       <button onClick={() => navigate("/admin")}>login</button>
+      <button onClick={() => navigate(-1)}>Back</button>
     </>
   );
 };

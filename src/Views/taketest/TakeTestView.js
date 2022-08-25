@@ -6,8 +6,12 @@ export const TakeTestView = () => {
     const {testId}= useParams();
     const navigate = useNavigate();
   return (
-    <h1>
+    <>
+      <h1>
         {testId}
     </h1>
+    <button onClick={() => navigate(-1)}>Back</button>
+    </>
+  
   )
 }

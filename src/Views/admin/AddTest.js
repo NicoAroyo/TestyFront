@@ -114,8 +114,8 @@ export const AddTest = () => {
           <button onClick={(e) => submitForm(e)}>submit</button>
         </form>
       </div>
-      <button onClick={(e)=>{
-        e.preventDefault();
+      <button onClick={()=>{
+        
         navigate(-1)}}>Back</button>
     </>
   );
