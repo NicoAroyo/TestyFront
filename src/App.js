@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { AdminView } from "./views/admin/AdminView";
@@ -11,8 +11,19 @@ import { AddQuestionView } from "./views/admin/AddQuestionView";
 import { AddTest } from "./views/admin/AddTest";
 import { ChooseTestView } from "./views/taketest/ChooseTestView";
 import { TakeTestView } from "./views/taketest/TakeTestView";
+import { BackendService } from "./service/backendService";
 
 export const App = () => {
+  useEffect(() => {
+    //   fetch("http://localhost:5000/api/quizes/")
+    //     .then((x) => x.json())
+    //     .then((x) => console.log(x));
+    const questionService = new BackendService("questions");
+    questionService
+      .getAllAsync()
+      .then((x) => console.log(x))
+      .catch((err) => console.log(err));
+  });
   return (
     <>
       <Routes>
@@ -40,14 +51,8 @@ export const App = () => {
           path="admin/manage-questions/add"
           element={<AddQuestionView />}
         ></Route>
-        <Route
-          path="choose-test"
-          element={<ChooseTestView />}
-        ></Route>
-        <Route
-          path="take-test/:testId"
-          element={<TakeTestView />}
-        ></Route>
+        <Route path="choose-test" element={<ChooseTestView />}></Route>
+        <Route path="take-test/:testId" element={<TakeTestView />}></Route>
       </Routes>
     </>
   );

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { QuizService } from "../../service/quizService";
 import { TopicsService } from "../../service/topicsService";
 
 export const AddTest = () => {
   const { topicId } = useParams();
+  const navigate = useNavigate();
   const [topic, setTopic] = useState("");
   const [newTest, setNewTest] = useState({
     topicId: +topicId,
@@ -114,9 +115,13 @@ export const AddTest = () => {
           <button onClick={(e) => submitForm(e)}>submit</button>
         </form>
       </div>
-      <button onClick={()=>{
-        
-        navigate(-1)}}>Back</button>
+      <button
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        Back
+      </button>
     </>
   );
 };
