@@ -1,29 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { AdminView } from "./views/admin/AdminView";
-import { ManageTestsView } from "./views/admin/ManageTestsView";
-import { ManageQuestionsView } from "./views/admin/ManageQuestionsView";
+import { ManageTestsView } from "./views/admin/test/ManageTestsView";
+import { ManageQuestionsView } from "./views/admin/question/ManageQuestionsView";
 import { Reports } from "./views/admin/Reports";
 import { Home } from "./views/Home";
 import { Login } from "./views/Login";
-import { AddQuestionView } from "./views/admin/AddQuestionView";
-import { AddTest } from "./views/admin/AddTest";
-import { ChooseTestView } from "./views/taketest/ChooseTestView";
-import { TakeTestView } from "./views/taketest/TakeTestView";
-import { BackendService } from "./service/backendService";
+import { AddQuestionView } from "./views/admin/question/AddQuestionView";
+import { AddTest } from "./views/admin/test/AddTest";
+import { ChooseTestView } from "./views/user/taketest/ChooseTestView";
+import { TakeTestView } from "./views/user/taketest/TakeTestView";
+import { EditTest } from "./views/admin/test/EditTest";
 
 export const App = () => {
-  useEffect(() => {
-    //   fetch("http://localhost:5000/api/quizes/")
-    //     .then((x) => x.json())
-    //     .then((x) => console.log(x));
-    const questionService = new BackendService("questions");
-    questionService
-      .getAllAsync()
-      .then((x) => console.log(x))
-      .catch((err) => console.log(err));
-  });
   return (
     <>
       <Routes>
@@ -32,23 +22,28 @@ export const App = () => {
         <Route path="admin" element={<AdminView />}></Route>
 
         <Route
-          path="admin/manage-tests/:topicId"
+          path="admin/manage-tests/:topic"
           element={<ManageTestsView />}
         ></Route>
 
         <Route
-          path="admin/manage-tests/:topicId/add"
+          path="admin/manage-tests/:topic/add"
           element={<AddTest />}
+        ></Route>
+
+        <Route
+          path="admin/manage-tests/:topic/edit/:id"
+          element={<EditTest />}
         ></Route>
 
         <Route path="admin/reports" element={<Reports />}></Route>
 
         <Route
-          path="admin/manage-questions"
+          path="admin/manage-questions/:topic"
           element={<ManageQuestionsView />}
         ></Route>
         <Route
-          path="admin/manage-questions/add"
+          path="admin/manage-questions/:topic/add"
           element={<AddQuestionView />}
         ></Route>
         <Route path="choose-test" element={<ChooseTestView />}></Route>

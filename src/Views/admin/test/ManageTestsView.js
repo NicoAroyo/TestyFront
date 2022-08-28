@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { QuizService } from "../../service/quizService";
+import { BackendService } from "../../../service/backendService";
 
 export const ManageTestsView = () => {
   const [tests, setTests] = useState([]);
   const navigate = useNavigate();
-  const { topicId } = useParams();
+  const { topic } = useParams();
 
   useEffect(() => {
-    const service = new QuizService();
+    const service = new BackendService("quizes");
     (async () => {
-      const data = await service.getAll();
-      setTests(data.filter((q) => q.topicId === +topicId));
+      const data = await service.getAllAsync();
+      console.log(data);
+      // console.log(data);
+      setTests(data.filter((q) => q.topic === topic));
+      console.log(tests);
     })();
   }, []);
 
@@ -40,7 +43,9 @@ export const ManageTestsView = () => {
                 <td>{test.passingGrade}</td>
                 <td>
                   <div>
-                    <button>edit</button>
+                    <button onClick={() => navigate(`edit/${test._id}`)}>
+                      edit
+                    </button>
                     <button>duplicate</button>
                     <p>active</p>
                   </div>
@@ -50,7 +55,6 @@ export const ManageTestsView = () => {
           })}
         </tbody>
       </table>
-     
     </>
   );
 };

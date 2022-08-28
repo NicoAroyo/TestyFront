@@ -1,32 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { QuizService } from "../../service/quizService";
-import { TopicsService } from "../../service/topicsService";
+import { BackendService } from "../../../service/backendService";
+import { QuizService } from "../../../service/quizService";
+import { TopicsService } from "../../../service/topicsService";
 
 export const AddTest = () => {
-  const { topicId } = useParams();
+  const { topic } = useParams();
   const navigate = useNavigate();
-  const [topic, setTopic] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [newTest, setNewTest] = useState({
-    topicId: +topicId,
+    topic: topic,
     language: "eng",
   });
 
   useEffect(() => {
-    const topicService = new TopicsService();
+    // const topicService = new BackendService("topics");
     //IIFE - immediately invoked function expression
-    (async () => {
-      const topic = await topicService.getByIdAsync(+topicId);
-      setTopic(topic.name);
-    })();
+    // (async () => {
+    //   const topic = await topicService.getByIdAsync(+topicName);
+    //   setTopic(topic.name);
+    // })();
   }, []);
+
+  const selectQuestions = async (e) => {
+    e.preventDefault();
+    const questionService = new BackendService("questions");
+    const data = await questionService.getAllAsync();
+    console.log(data);
+    setQuestions(data);
+  };
+
+  const selectQuestion = async (checked, question) => {
+    if (checked) {
+      setSelectedQuestions([...selectedQuestions, question]);
+    } else {
+      setSelectedQuestions(
+        selectedQuestions.filter((q) => q._id !== question._id)
+      );
+    }
+  };
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const quizService = new QuizService();
+    const quizService = new BackendService("quizes");
 
-    newTest.questions = [1, 2];
-
+    newTest.questions = selectedQuestions;
+    console.log(newTest);
     try {
       await quizService.postAsync(newTest);
     } catch (error) {
@@ -65,7 +85,7 @@ export const AddTest = () => {
             <label>passing grade</label>
             <input
               onChange={(e) =>
-                setNewTest({ ...newTest, passingGrade: e.target.value })
+                setNewTest({ ...newTest, passingGrade: +e.target.value })
               }
               type={"number"}
               value={newTest?.passingGrade ?? ""}
@@ -115,13 +135,21 @@ export const AddTest = () => {
           <button onClick={(e) => submitForm(e)}>submit</button>
         </form>
       </div>
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        Back
-      </button>
+      <button onClick={(e) => selectQuestions(e)}>Select questions</button>
+      <div>
+        {questions.map((question) => {
+          return (
+            <div key={question._id}>
+              <input
+                type={"checkbox"}
+                onChange={(e) => selectQuestion(e.target.checked, question)}
+              ></input>
+              <span>{question.content}</span>
+            </div>
+          );
+        })}
+      </div>
+      <button onClick={() => navigate(-1)}>Back</button>
     </>
   );
 };

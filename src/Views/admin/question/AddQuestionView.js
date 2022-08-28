@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { QuestionsService } from "../../service/questionsService";
+import { useParams } from "react-router-dom";
+import { BackendService } from "../../../service/backendService";
+import { QuestionsService } from "../../../service/questionsService";
 
 export const AddQuestionView = () => {
+  const { topic } = useParams();
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([
     { id: 1, content: "", isCorrect: false },
@@ -15,10 +18,13 @@ export const AddQuestionView = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const questionService = new QuestionsService();
-    question.asnwers = answers;
+    const questionService = new BackendService("questions");
+    console.log(answers);
+    question.answers = [...answers];
+    question.topic = topic;
     try {
-      await questionService.postAsync(question);
+      const res = await questionService.postAsync(question);
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -27,6 +33,7 @@ export const AddQuestionView = () => {
   return (
     <>
       <h3>AddQuestionView</h3>
+      <h3>Topic: {}</h3>
       <form>
         <div>
           <label>Question content:</label>
@@ -45,18 +52,20 @@ export const AddQuestionView = () => {
               type="radio"
               value="singleChoice"
               name="questionType"
-              onChange={(e) =>
-                setQuestion({ ...question, type: e.target.value })
-              }
+              onChange={(e) => {
+                setAnswers([{ id: 1, content: "", isCorrect: false }]);
+                setQuestion({ ...question, type: e.target.value });
+              }}
             />
             Single choice
             <input
               type="radio"
               value="multChoice"
               name="questionType"
-              onChange={(e) =>
-                setQuestion({ ...question, type: e.target.value })
-              }
+              onChange={(e) => {
+                setAnswers([{ id: 1, content: "", isCorrect: false }]);
+                setQuestion({ ...question, type: e.target.value });
+              }}
             />
             Multiple choices
           </div>
@@ -94,6 +103,26 @@ export const AddQuestionView = () => {
         </div>
 
         <div>
+          <input
+            type={"checkbox"}
+            onChange={(e) =>
+              setQuestion({ ...question, allowExplanation: e.target.checked })
+            }
+          ></input>
+          {question.allowExplanation && (
+            <>
+              <label>Explanation:</label>
+              <textarea
+                onChange={(e) =>
+                  setQuestion({ ...question, explanation: e.target.value })
+                }
+              ></textarea>
+            </>
+          )}
+          <label>Allow Explanation</label>
+        </div>
+
+        <div>
           <label>Answers</label>
           <button
             onClick={(e) => {
@@ -111,7 +140,7 @@ export const AddQuestionView = () => {
           <div>
             {answers.map((answer) => {
               return (
-                <>
+                <div key={answer.id}>
                   <label>correct</label>
                   <input
                     type={
@@ -119,8 +148,12 @@ export const AddQuestionView = () => {
                     }
                     name="correct"
                     onChange={(e) => {
-                      answers.forEach((a) => (a.isCorrect = false));
-                      answer.isCorrect = e.target.checked;
+                      if (question.type === "singleChoice") {
+                        answers.forEach((a) => (a.isCorrect = false));
+                        answer.isCorrect = e.target.checked;
+                      } else {
+                        answer.isCorrect = e.target.checked;
+                      }
                       setAnswers(answers);
                     }}
                   ></input>
@@ -135,7 +168,7 @@ export const AddQuestionView = () => {
                   <button onClick={(e) => deleteAnswer(e, answer.id)}>
                     Delete
                   </button>
-                </>
+                </div>
               );
             })}
           </div>
