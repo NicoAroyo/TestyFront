@@ -51,6 +51,9 @@ export const ManageQuestionsView = () => {
                 <button onClick={() => deleteQuestion(question._id)}>
                   delete
                 </button>
+                <button onClick={() => navigate(`edit/${question._id}`)}>
+                  edit
+                </button>
               </tr>
             );
           })}

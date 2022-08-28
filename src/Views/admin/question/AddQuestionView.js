@@ -13,7 +13,7 @@ export const AddQuestionView = () => {
   const deleteAnswer = (e, answerId) => {
     e.preventDefault();
     if (answers.length <= 1) return;
-    setAnswers(answers.filter((a) => a.id != answerId));
+    setAnswers(answers.filter((a) => a.id !== answerId));
   };
 
   const submitForm = async (e) => {
@@ -33,7 +33,7 @@ export const AddQuestionView = () => {
   return (
     <>
       <h3>AddQuestionView</h3>
-      <h3>Topic: {}</h3>
+      <h3>Topic: {topic}</h3>
       <form>
         <div>
           <label>Question content:</label>

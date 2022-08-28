@@ -12,6 +12,7 @@ import { AddTest } from "./views/admin/test/AddTest";
 import { ChooseTestView } from "./views/user/taketest/ChooseTestView";
 import { TakeTestView } from "./views/user/taketest/TakeTestView";
 import { EditTest } from "./views/admin/test/EditTest";
+import { EditQuestionView } from "./views/admin/question/EditQuestionView";
 
 export const App = () => {
   return (
@@ -45,6 +46,10 @@ export const App = () => {
         <Route
           path="admin/manage-questions/:topic/add"
           element={<AddQuestionView />}
+        ></Route>
+        <Route
+          path="admin/manage-questions/:topic/edit/:id"
+          element={<EditQuestionView />}
         ></Route>
         <Route path="choose-test" element={<ChooseTestView />}></Route>
         <Route path="take-test/:testId" element={<TakeTestView />}></Route>
