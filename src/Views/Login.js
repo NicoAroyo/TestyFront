@@ -17,7 +17,8 @@ export const Login = () => {
     e.preventDefault();
     const auth = new AuthenticationService();
     try {
-      const { user } = auth.loginUser({ email, password });
+      const { user } = await auth.loginUser({ email, password });
+      console.log(user); 
       if (user) navigate(`/admin`);
       if (!user) alert("Invalid Credentials");
     } catch (error) {

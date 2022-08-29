@@ -8,7 +8,7 @@ export const AdminView = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const service = new BackendService("topics");
+    const service = new BackendService("Topics");
     (async () => {
       const data = await service.getAllAsync();
       setTopics(data);
