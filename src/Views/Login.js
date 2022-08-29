@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import { AuthenticationService } from "../service/authenticationService";
 
 export const Login = () => {
@@ -18,8 +17,13 @@ export const Login = () => {
     const auth = new AuthenticationService();
     try {
       const { user } = await auth.loginUser({ email, password });
+
       if (user) navigate("/admin");
       if (!user) throw Error("Invalid Credentials");
+
+      console.log(user);
+      if (user) navigate(`/admin`);
+      if (!user) alert("Invalid Credentials");
     } catch (error) {
       alert(error);
     }
@@ -47,8 +51,4 @@ export const Login = () => {
       </form>
     </>
   );
-};
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
 };
