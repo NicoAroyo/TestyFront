@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 
-export const ManageTestsView = () => {
+export const ViewTests = () => {
+  const { topic } = useParams();
   const [tests, setTests] = useState([]);
   const navigate = useNavigate();
-  const { topic } = useParams();
 
   useEffect(() => {
     const service = new BackendService("quizes");
@@ -38,7 +38,6 @@ export const ManageTestsView = () => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Test Name</th>
             <th>Num of questions</th>
             <th>Passing Grade</th>
@@ -48,7 +47,6 @@ export const ManageTestsView = () => {
           {tests.map((test) => {
             return (
               <tr key={test._id}>
-                <td>{test._id}</td>
                 <td>{test.name}</td>
                 <td>{test.questions.length}</td>
                 <td>{test.passingGrade}</td>
@@ -56,6 +54,9 @@ export const ManageTestsView = () => {
                   <div>
                     <button onClick={() => navigate(`edit/${test._id}`)}>
                       edit
+                    </button>
+                    <button onClick={() => navigate(`details/${test._id}`)}>
+                      details
                     </button>
                     <button onClick={() => deleteTest(test._id)}>delete</button>
                     <p>active</p>

@@ -17,7 +17,7 @@ export const EditTest = () => {
     })();
   }, []);
 
-  const submitForm = async (e) => {
+  const saveChanges = async (e) => {
     e.preventDefault();
     const quizService = new BackendService("quizes");
     try {
@@ -29,9 +29,9 @@ export const EditTest = () => {
 
   return (
     <>
-     <button onClick={() => navigate(-1)}>Back</button>
+      <button onClick={() => navigate(-1)}>Back</button>
+
       <div>
-     
         <h2>edit test {test._id}</h2>
         <h3>topic: {topic}</h3>
         <form>
@@ -102,24 +102,9 @@ export const EditTest = () => {
             ></textarea>
           </div>
 
-          <button onClick={(e) => submitForm(e)}>submit</button>
+          <button onClick={(e) => saveChanges(e)}>submit</button>
         </form>
       </div>
-      {/* <button onClick={(e) => selectQuestions(e)}>Select questions</button>
-      <div>
-        {questions.map((question) => {
-          return (
-            <div key={question._id}>
-              <input
-                type={"checkbox"}
-                onChange={(e) => selectQuestion(e.target.checked, question)}
-              ></input>
-              <span>{question.content}</span>
-            </div>
-          );
-        })}
-      </div> */}
-      
     </>
   );
 };

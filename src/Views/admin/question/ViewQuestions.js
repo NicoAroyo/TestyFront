@@ -29,7 +29,7 @@ export const ManageQuestionsView = () => {
 
   return (
     <>
-      <div>ManageQuestionsView</div>
+      <h2>Manage Questions</h2>
       <h3>Topic: {topic}</h3>
       <button onClick={() => navigate("add")}> add question uwu</button>
       <button onClick={() => navigate(-1)}>go back lol</button>

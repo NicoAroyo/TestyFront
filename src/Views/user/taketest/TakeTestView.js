@@ -39,7 +39,7 @@ export const TakeTestView = () => {
   };
 
   const submitTest = () => {
-    console.log("submitting test xd");
+    console.log("congratulations");
   };
 
   return (
