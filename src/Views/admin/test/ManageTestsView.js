@@ -18,6 +18,17 @@ export const ManageTestsView = () => {
     })();
   }, []);
 
+  const deleteTest = async (id) => {
+    const service = new BackendService("quizes");
+    try {
+      setTests(tests.filter((x) => x._id !== id));
+      const res = await service.deleteAsync(id);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div>ManageTestsView</div>
@@ -36,8 +47,8 @@ export const ManageTestsView = () => {
         <tbody>
           {tests.map((test) => {
             return (
-              <tr key={test.id}>
-                <td>{test.id}</td>
+              <tr key={test._id}>
+                <td>{test._id}</td>
                 <td>{test.name}</td>
                 <td>{test.questions.length}</td>
                 <td>{test.passingGrade}</td>
@@ -46,7 +57,7 @@ export const ManageTestsView = () => {
                     <button onClick={() => navigate(`edit/${test._id}`)}>
                       edit
                     </button>
-                    <button>duplicate</button>
+                    <button onClick={() => deleteTest(test._id)}>delete</button>
                     <p>active</p>
                   </div>
                 </td>

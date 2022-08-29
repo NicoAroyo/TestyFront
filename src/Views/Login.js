@@ -19,7 +19,10 @@ export const Login = () => {
       const { user } = await auth.loginUser({ email, password });
 
       if (user) navigate("/admin");
-      if (!user) throw Error("Invalid Credentials");
+
+      if (!user) {
+        throw Error("Invalid Credentials");
+      }
 
       console.log(user);
       if (user) navigate(`/admin`);
@@ -35,11 +38,17 @@ export const Login = () => {
       <form onSubmit={authenticate}>
         <label>
           <p>Email</p>
-          <input type="text" onChange={(e) => setEmail(e.target.value)} />
+
+          <input
+            value={email}
+            type="text"
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <label>
           <p>Password</p>
           <input
+            value={password}
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
