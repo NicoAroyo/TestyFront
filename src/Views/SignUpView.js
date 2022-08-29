@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BackendService } from '../service/backendService';
 import { useNavigate } from 'react-router-dom';
+import { AuthenticationService } from '../service/authenticationService';
 
 export const SignUpView = () =>{
     const navigate = useNavigate();
@@ -9,14 +10,24 @@ export const SignUpView = () =>{
   
     const submitForm = async (e) => {
       e.preventDefault();
-      const usersService = new BackendService("users");
+      try{
+        const auth = new AuthenticationService();
+        const tmpUser = auth.signUpUser(newUser.email);
+        if(!tmpUser){
+            const usersService = new BackendService("users");
       console.log(newUser);
-      try {
         await usersService.postAsync(newUser);
+        }
+        else{
+            alert("E-mail taken");
+            throw Error("Invalid Credentials");
+
+        }
       } catch (error) {
         console.error(error);
-      }
-    };
+      }};
+    
+
   
     return (
       <>
@@ -56,6 +67,6 @@ export const SignUpView = () =>{
       </>
       
     );
-    
+            
   
 }

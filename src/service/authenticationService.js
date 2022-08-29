@@ -11,6 +11,18 @@ export class AuthenticationService {
       .catch(this.#failure);
   }
 
+  async signUpUser(credentials) {
+    return fetch(`http://localhost:5000/sign-up/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then(this.#success)
+      .catch(this.#failure);
+  }
+
   async #success(response) {
     const data = await response.json();
     return data;
