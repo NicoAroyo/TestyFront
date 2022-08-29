@@ -9,18 +9,19 @@ export const SignUpView = () =>{
     );
   
     const submitForm = async (e) => {
-      e.preventDefault();
+        e.preventDefault();
+      console.log("hi"); 
+      console.log(newUser);
       try{
         const auth = new AuthenticationService();
-        const tmpUser = auth.signUpUser(newUser.email);
-        if(!tmpUser){
-            const usersService = new BackendService("users");
-      console.log(newUser);
-        await usersService.postAsync(newUser);
-        }
-        else{
+        const response =await auth.signUpUser({email:newUser.email});
+        console.log(response);
+        if(response.exists){
             alert("E-mail taken");
-            throw Error("Invalid Credentials");
+        }else{
+            const service = new BackendService("users");
+            const res = await service.postAsync(newUser);
+            console.log(res);
 
         }
       } catch (error) {
