@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
-import { QuizService } from "../../../service/quizService";
-import { TopicsService } from "../../../service/topicsService";
 
 export const AddTest = () => {
   const { topic } = useParams();

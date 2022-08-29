@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { QuestionsService } from "../../../service/questionsService";
 import { useNavigate, useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 export const ManageQuestionsView = () => {
