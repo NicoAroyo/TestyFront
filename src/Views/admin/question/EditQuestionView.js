@@ -44,8 +44,10 @@ export const EditQuestionView = () => {
 
   return (
     <>
+    <button onClick={() => navigate(-1)}>Back</button>
       <h3>Edit Question {question._id}</h3>
       <h3>Topic: {topic}</h3>
+      
       <form>
         <div>
           <label>Question content:</label>
@@ -195,6 +197,7 @@ export const EditQuestionView = () => {
         </div>
         <button onClick={(e) => submitForm(e)}>submit</button>
       </form>
+      
     </>
   );
 };
