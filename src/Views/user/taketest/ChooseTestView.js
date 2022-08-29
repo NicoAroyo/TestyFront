@@ -6,12 +6,11 @@ import { BackendService } from "../../../service/backendService";
 export const ChooseTestView = () => {
   const [tests, setTests] = useState([]);
   const navigate = useNavigate();
-  const service = new BackendService("quizes");
 
   useEffect(() => {
     const service = new BackendService("quizes");
     (async () => {
-      const data = await service.getAll();
+      const data = await service.getAllAsync();
       console.log(data);
       setTests(data);
     })();
@@ -32,7 +31,9 @@ export const ChooseTestView = () => {
                   <tr key={test.id}>
                     <td>{test.name}</td>
                     <td>
-                      <button onClick={() => navigate(`/take-test/${test.id}`)}>
+                      <button
+                        onClick={() => navigate(`/take-test/${test._id}`)}
+                      >
                         Take test
                       </button>
                     </td>
