@@ -13,6 +13,7 @@ import { ChooseTestView } from "./views/user/taketest/ChooseTestView";
 import { TakeTestView } from "./views/user/taketest/TakeTestView";
 import { EditTest } from "./views/admin/test/EditTest";
 import { EditQuestionView } from "./views/admin/question/EditQuestionView";
+import { SignUpView } from "./views/SignUpView";
 
 export const App = () => {
   return (
@@ -53,6 +54,7 @@ export const App = () => {
         ></Route>
         <Route path="choose-test" element={<ChooseTestView />}></Route>
         <Route path="take-test/:testId" element={<TakeTestView />}></Route>
+        <Route path="/sign-up" element={<SignUpView/>}></Route>
       </Routes>
     </>
   );

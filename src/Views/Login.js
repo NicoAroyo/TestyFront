@@ -46,6 +46,7 @@ export const Login = () => {
         </label>
         <div>
           <button onClick={authenticate}>login</button>
+          <button onClick={() => navigate("/sign-up")}>Sign Up</button>
           <button onClick={navigateBack}>Back</button>
         </div>
       </form>
