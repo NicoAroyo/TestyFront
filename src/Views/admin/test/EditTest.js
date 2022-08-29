@@ -29,7 +29,9 @@ export const EditTest = () => {
 
   return (
     <>
+     <button onClick={() => navigate(-1)}>Back</button>
       <div>
+     
         <h2>edit test {test._id}</h2>
         <h3>topic: {topic}</h3>
         <form>
@@ -117,7 +119,7 @@ export const EditTest = () => {
           );
         })}
       </div> */}
-      <button onClick={() => navigate(-1)}>Back</button>
+      
     </>
   );
 };
