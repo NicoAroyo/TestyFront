@@ -13,11 +13,11 @@ export const Login = () => {
     const auth = new AuthenticationService();
     try {
       const { user } = await auth.loginUser({ email, password });
-      console.log(user);
+
       if (user.isAdmin) {
         navigate("/admin");
       } else if (!user.isAdmin) {
-        navigate("/choose-test");
+        navigate(`/choose-test/${user._id}`);
       } else {
         throw new Error("Invalid Credentials");
       }
@@ -26,7 +26,9 @@ export const Login = () => {
     }
   };
 
-  const signUp = () => {navigate("sign-up")};
+  const signUp = () => {
+    navigate("sign-up");
+  };
 
   return (
     <form className="login">

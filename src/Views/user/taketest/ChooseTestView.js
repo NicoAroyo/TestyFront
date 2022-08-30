@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { BackendService } from "../../../service/backendService";
 
 export const ChooseTestView = () => {
   const [tests, setTests] = useState([]);
   const navigate = useNavigate();
+  const { userId } = useParams();
 
   useEffect(() => {
     const service = new BackendService("quizes");
@@ -32,7 +33,9 @@ export const ChooseTestView = () => {
                     <td>{test.name}</td>
                     <td>
                       <button
-                        onClick={() => navigate(`/take-test/${test._id}`)}
+                        onClick={() =>
+                          navigate(`/take-test/${userId}/${test._id}`)
+                        }
                       >
                         Take test
                       </button>
