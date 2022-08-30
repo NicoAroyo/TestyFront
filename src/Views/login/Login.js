@@ -26,7 +26,7 @@ export const Login = () => {
     }
   };
 
-  const signUp = () => {};
+  const signUp = () => {navigate("sign-up")};
 
   return (
     <form className="login">
