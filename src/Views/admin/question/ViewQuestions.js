@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
+import { Button } from "../../../components/Button/Button";
+
 export const ManageQuestionsView = () => {
   const { topic } = useParams();
-  console.log(topic);
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const questionService = new BackendService("questions");
     (async () => {
-      const data = await questionService.getAllAsync();
-      console.log(data);
-      setQuestions(data);
+      try {
+        const data = await questionService.getAllAsync();
+        setQuestions(data);
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, []);
 
@@ -20,8 +24,7 @@ export const ManageQuestionsView = () => {
     const questionService = new BackendService("questions");
     setQuestions(questions.filter((q) => q._id != id));
     try {
-      const res = await questionService.deleteAsync(id);
-      console.log(res);
+      await questionService.deleteAsync(id);
     } catch (error) {
       console.error(error);
     }
@@ -29,35 +32,48 @@ export const ManageQuestionsView = () => {
 
   return (
     <>
-      <h2>Manage Questions</h2>
       <h3>Topic: {topic}</h3>
-      <button onClick={() => navigate("add")}> add question uwu</button>
-      <button onClick={() => navigate(-1)}>go back lol</button>
+      <Button onClick={() => navigate("add")}>Add a question</Button>
+      <Button onClick={() => navigate(-1)}>return</Button>
       <h2>Questions List:</h2>
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Content</th>
+            <th>Type</th>
           </tr>
         </thead>
         <tbody>
           {questions.map((question) => {
             return (
-              <tr key={question._id}>
-                <td>{question._id}</td>
-                <td>{question.content}</td>
-                <button onClick={() => deleteQuestion(question._id)}>
-                  delete
-                </button>
-                <button onClick={() => navigate(`edit/${question._id}`)}>
-                  edit
-                </button>
-              </tr>
+              <Question question={question} deleteQuestion={deleteQuestion} />
             );
           })}
         </tbody>
       </table>
+    </>
+  );
+};
+
+const Question = ({ question, deleteQuestion }) => {
+  const navigate = useNavigate();
+  const [showDetails, setShowDetails] = useState(false);
+
+  return (
+    <>
+      <tr key={question._id} onClick={() => setShowDetails(!showDetails)}>
+        <td>{question.content}</td>
+        <td>{question.type}</td>
+        <button onClick={() => deleteQuestion(question._id)}>delete</button>
+        <button onClick={() => navigate(`edit/${question._id}`)}>edit</button>
+      </tr>
+      {showDetails && (
+        <div>
+          {question.answers.map((answer) => {
+            return <p>{answer.content}</p>;
+          })}
+        </div>
+      )}
     </>
   );
 };

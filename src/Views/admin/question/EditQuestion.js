@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
+import { AnswerForm } from "./AnswerForm";
 
 export const EditQuestionView = () => {
   const { id, topic } = useParams();
@@ -44,10 +45,10 @@ export const EditQuestionView = () => {
 
   return (
     <>
-    <button onClick={() => navigate(-1)}>Back</button>
+      <button onClick={() => navigate(-1)}>Back</button>
       <h3>Edit Question {question._id}</h3>
       <h3>Topic: {topic}</h3>
-      
+
       <form>
         <div>
           <label>Question content:</label>
@@ -160,44 +161,20 @@ export const EditQuestionView = () => {
           <div>
             {answers.map((answer) => {
               return (
-                <div key={answer.id}>
-                  <label>correct</label>
-                  <input
-                    defaultChecked={answer.isCorrect}
-                    type={
-                      question.type === "singleChoice" ? "radio" : "checkbox"
-                    }
-                    name="correct"
-                    onChange={(e) => {
-                      if (question.type === "singleChoice") {
-                        answers.forEach((a) => (a.isCorrect = false));
-                        answer.isCorrect = e.target.checked;
-                      } else {
-                        answer.isCorrect = e.target.checked;
-                      }
-                      setAnswers(answers);
-                    }}
-                  ></input>
-
-                  <input
-                    type="text"
-                    defaultValue={answer.content}
-                    onChange={(e) => {
-                      answer.content = e.target.value;
-                      setAnswers(answers);
-                    }}
-                  ></input>
-                  <button onClick={(e) => deleteAnswer(e, answer.id)}>
-                    Delete
-                  </button>
-                </div>
+                <AnswerForm
+                  key={answer.id}
+                  answer={answer}
+                  answers={answers}
+                  type={question.type}
+                  setAnswers={setAnswers}
+                  deleteAnswer={deleteAnswer}
+                />
               );
             })}
           </div>
         </div>
         <button onClick={(e) => submitForm(e)}>submit</button>
       </form>
-      
     </>
   );
 };

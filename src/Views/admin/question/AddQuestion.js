@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
+import { AnswerForm } from "./AnswerForm";
 
 export const AddQuestionView = () => {
   const { topic } = useParams();
@@ -22,8 +23,7 @@ export const AddQuestionView = () => {
     question.answers = [...answers];
     question.topic = topic;
     try {
-      const res = await questionService.postAsync(question);
-      console.log(res);
+      await questionService.postAsync(question);
     } catch (error) {
       console.error(error);
     }
@@ -31,11 +31,10 @@ export const AddQuestionView = () => {
 
   return (
     <>
-      <h3>AddQuestionView</h3>
-      <h3>Topic: {topic}</h3>
+      <h3>topic: {topic}</h3>
       <form>
         <div>
-          <label>Question content:</label>
+          <label>question content:</label>
           <input
             type="text"
             value={question?.content ?? ""}
@@ -44,8 +43,9 @@ export const AddQuestionView = () => {
             }
           ></input>
         </div>
+
         <div>
-          <label>Question type:</label>
+          <label>question type:</label>
           <div>
             <input
               type="radio"
@@ -69,6 +69,7 @@ export const AddQuestionView = () => {
             Multiple choices
           </div>
         </div>
+
         <div>
           <label>Display</label>
           <div>
@@ -79,8 +80,7 @@ export const AddQuestionView = () => {
               onChange={(e) =>
                 setQuestion({
                   ...question,
-                  displayVertically:
-                    e.target.value === "Vertical" ? true : false,
+                  displayVertically: e.target.checked,
                 })
               }
             />
@@ -92,8 +92,7 @@ export const AddQuestionView = () => {
               onChange={(e) =>
                 setQuestion({
                   ...question,
-                  displayVertically:
-                    e.target.value === "Horizontal" ? false : true,
+                  displayVertically: e.target.checked,
                 })
               }
             />
@@ -139,35 +138,14 @@ export const AddQuestionView = () => {
           <div>
             {answers.map((answer) => {
               return (
-                <div key={answer.id}>
-                  <label>correct</label>
-                  <input
-                    type={
-                      question.type === "singleChoice" ? "radio" : "checkbox"
-                    }
-                    name="correct"
-                    onChange={(e) => {
-                      if (question.type === "singleChoice") {
-                        answers.forEach((a) => (a.isCorrect = false));
-                        answer.isCorrect = e.target.checked;
-                      } else {
-                        answer.isCorrect = e.target.checked;
-                      }
-                      setAnswers(answers);
-                    }}
-                  ></input>
-
-                  <input
-                    type="text"
-                    onChange={(e) => {
-                      answer.content = e.target.value;
-                      setAnswers(answers);
-                    }}
-                  ></input>
-                  <button onClick={(e) => deleteAnswer(e, answer.id)}>
-                    Delete
-                  </button>
-                </div>
+                <AnswerForm
+                  key={answer.id}
+                  answer={answer}
+                  answers={answers}
+                  type={question.type}
+                  setAnswers={setAnswers}
+                  deleteAnswer={deleteAnswer}
+                />
               );
             })}
           </div>
