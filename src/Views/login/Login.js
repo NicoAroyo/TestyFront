@@ -26,7 +26,8 @@ export const Login = () => {
     }
   };
 
-  const signUp = () => {
+  const signUp = (e) => {
+    e.preventDefault();
     navigate("sign-up");
   };
 
@@ -46,10 +47,9 @@ export const Login = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
+        <button onClick={authenticate}>Login</button>
+        <button onClick={signUp}>Sign Up</button>
       </div>
-
-      <button onClick={authenticate}>Login</button>
-      <button onClick={signUp}>Sign Up</button>
     </form>
   );
 };

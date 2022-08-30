@@ -4,11 +4,7 @@
   margin: 0;
 }
 
-html {
-  background: black;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.2) 25%,
-    rgba(251, 170, 235, 1) 75%
-  );
+body {
+  background: $background-pink;
+  height: 100vh;
 }

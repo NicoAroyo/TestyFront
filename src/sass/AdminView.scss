@@ -1,0 +1,49 @@
+@import "./variables.scss";
+
+* {
+  font-family: $primary-font;
+}
+
+.select-topic {
+  font-family: $secondary-font;
+}
+
+input[type="select"] {
+  width: 300px;
+}
+
+.menu {
+  color: $light-color;
+  background-color: $background-dark;
+  display: flex;
+  position: sticky;
+  align-items: center;
+  justify-content: space-around;
+
+  form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    label {
+      font-size: 1.2rem;
+    }
+
+    select {
+      font-size: 1.1rem;
+      background: $background-darker;
+      color: $light-color;
+      border: none;
+      width: 10rem;
+      height: 2rem;
+      box-shadow: rgba(255, 255, 255, 0.16) 0px 1px 4px;
+      padding-left: 0.5rem;
+
+      option {
+        text-transform: capitalize;
+      }
+    }
+  }
+}

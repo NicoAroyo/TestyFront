@@ -1,8 +1,14 @@
 $primary-font: "Alegreya Sans", sans-serif;
 $secondary-font: "Merriweather Sans", sans-serif;
 
+$dark-color: black;
+$light-color: #efefef;
+
+$background-dark: #2a2a2a;
+$background-darker: #222;
+
 $background-pink: linear-gradient(
   180deg,
-  rgba(0, 0, 0, 0.2) 25%,
-  rgba(251, 170, 235, 1) 75%
+  rgba(0, 0, 0, 0.8) 0%,
+  rgba(251, 170, 235, 0.8) 100%
 );
