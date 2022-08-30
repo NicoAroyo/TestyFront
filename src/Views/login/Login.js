@@ -13,8 +13,11 @@ export const Login = () => {
     const auth = new AuthenticationService();
     try {
       const { user } = await auth.loginUser({ email, password });
-      if (user) {
+      console.log(user);
+      if (user.isAdmin) {
         navigate("/admin");
+      } else if (!user.isAdmin) {
+        navigate("/choose-test");
       } else {
         throw new Error("Invalid Credentials");
       }
