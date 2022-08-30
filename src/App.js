@@ -15,6 +15,7 @@ import { SignUpView } from "./views/SignUpView";
 import { Login } from "./views/login/Login";
 import { DetailsTest } from "./views/admin/test/DetailsTest";
 import "./sass/App.scss";
+import { ReportForTestView } from "./views/admin/reports/ReportForTestView";
 
 export const App = () => {
   return (
@@ -46,6 +47,7 @@ export const App = () => {
         <Route path="take-test/:id" element={<TakeTestView />}></Route>
 
         <Route path="/sign-up" element={<SignUpView />}></Route>
+        <Route path ="/reports-for/:id/" element={< ReportForTestView/>}></Route>
       </Routes>
     </>
   );

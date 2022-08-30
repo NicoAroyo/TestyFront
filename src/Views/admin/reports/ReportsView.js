@@ -39,7 +39,7 @@ export const ReportsView = () => {
                     <td>{test.name}</td>
                     <td>
                       <button
-                        onClick={() => navigate(`/reports-for/${test._id}`)}
+                        onClick={() => navigate(`/reports-for/${test.id}`)}
                       >
                         View reports
                       </button>
