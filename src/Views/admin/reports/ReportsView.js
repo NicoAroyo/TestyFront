@@ -11,11 +11,12 @@ export const ReportsView = () => {
 
   useEffect(() => {
     const service = new BackendService("quizes");
+    console.log(topic);
     (async () => {
       const data = await service.getAllAsync();
       console.log(data);
       // console.log(data);
-      setTests(data.filter((q) => q.topic === topic));
+      setTests(data.filter((q) => q.topic === topic.topic));
       console.log(tests);
     })();
   }, []);
@@ -25,8 +26,10 @@ export const ReportsView = () => {
       <div>
         <table>
           <thead>
+            <tr>
             <th>Test</th>
             <th>Go to test</th>
+            </tr>
           </thead>
           <tbody>
             {tests.map((test) => {
