@@ -55,6 +55,7 @@ export const AdminView = () => {
             manage tests
           </Button>
 
+<<<<<<< HEAD
           <Button
             onClick={() => navigate("reports")}
             disabled={selectedTopic === "None"}
@@ -62,6 +63,14 @@ export const AdminView = () => {
             reports
           </Button>
         </div>
+=======
+        <Button
+          onClick={() => navigate(`/${selectedTopic}/reports/`)}
+          disabled={selectedTopic === "None"}
+        >
+          reports
+        </Button>
+>>>>>>> 9d6989613ecdd70f2c4dc092d9766e28373b9b62
       </div>
     </>
   );

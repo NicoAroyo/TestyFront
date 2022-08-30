@@ -37,13 +37,11 @@ export const App = () => {
         {/* prettier-ignore */}
         <Route path="/:topic/questions/edit/:id" element={<EditQuestionView />}></Route>
 
-        <Route path="admin/reports" element={<ReportsView />}></Route>
-
         <Route path="choose-test/:userId" element={<ChooseTestView />}></Route>
         {/* prettier-ignore */}
         <Route path="take-test/:userId/:testId" element={<TakeTestView />}></Route>
 
-        <Route path="admin/reports" element={<ReportsView />}></Route>
+        <Route path="/:topic/reports/" element={<ReportsView />}></Route>
         <Route path="choose-test" element={<ChooseTestView />}></Route>
         <Route path="take-test/:id" element={<TakeTestView />}></Route>
 
