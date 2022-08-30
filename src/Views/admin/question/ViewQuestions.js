@@ -13,7 +13,7 @@ export const ManageQuestionsView = () => {
     (async () => {
       try {
         const data = await questionService.getAllAsync();
-        setQuestions(data);
+        setQuestions(data.filter((q)=> q.topic === topic));
       } catch (error) {
         console.error(error);
       }
