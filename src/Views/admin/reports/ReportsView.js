@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { BackendService } from "../../../service/backendService";
@@ -6,13 +7,16 @@ import { BackendService } from "../../../service/backendService";
 export const ReportsView = () => {
   const [tests, setTests] = useState([]);
   const navigate = useNavigate();
+  const topic = useParams(); 
 
   useEffect(() => {
     const service = new BackendService("quizes");
     (async () => {
       const data = await service.getAllAsync();
       console.log(data);
-      setTests(data);
+      // console.log(data);
+      setTests(data.filter((q) => q.topic === topic));
+      console.log(tests);
     })();
   }, []);
   return (

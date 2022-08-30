@@ -37,7 +37,7 @@ export const App = () => {
         {/* prettier-ignore */}
         <Route path="/:topic/questions/edit/:id" element={<EditQuestionView />}></Route>
 
-        <Route path="admin/reports" element={<ReportsView />}></Route>
+        <Route path="admin/reports/:topic" element={<ReportsView />}></Route>
         <Route path="choose-test" element={<ChooseTestView />}></Route>
         <Route path="take-test/:id" element={<TakeTestView />}></Route>
         <Route path="/sign-up" element={<SignUpView />}></Route>
