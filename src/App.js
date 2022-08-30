@@ -4,7 +4,7 @@ import { Route } from "react-router-dom";
 import { AdminView } from "./views/admin/AdminView";
 import { ViewTests } from "./views/admin/test/ViewTests";
 import { ManageQuestionsView } from "./views/admin/question/ViewQuestions";
-import { Reports } from "./views/admin/Reports";
+import { ReportsView } from "./views/admin/reports/ReportsView";
 import { AddQuestionView } from "./views/admin/question/AddQuestion";
 import { AddTest } from "./views/admin/test/AddTest";
 import { ChooseTestView } from "./views/user/taketest/ChooseTestView";
@@ -14,6 +14,7 @@ import { EditQuestionView } from "./views/admin/question/EditQuestion";
 import { SignUpView } from "./views/SignUpView";
 import { Login } from "./views/login/Login";
 import { DetailsTest } from "./views/admin/test/DetailsTest";
+import "./sass/App.scss";
 
 export const App = () => {
   return (
@@ -36,11 +37,16 @@ export const App = () => {
         {/* prettier-ignore */}
         <Route path="/:topic/questions/edit/:id" element={<EditQuestionView />}></Route>
 
-        <Route path="admin/reports" element={<Reports />}></Route>
+        <Route path="admin/reports" element={<ReportsView />}></Route>
 
         <Route path="choose-test/:userId" element={<ChooseTestView />}></Route>
         {/* prettier-ignore */}
         <Route path="take-test/:userId/:testId" element={<TakeTestView />}></Route>
+
+        <Route path="admin/reports" element={<ReportsView />}></Route>
+        <Route path="choose-test" element={<ChooseTestView />}></Route>
+        <Route path="take-test/:id" element={<TakeTestView />}></Route>
+
         <Route path="/sign-up" element={<SignUpView />}></Route>
       </Routes>
     </>
