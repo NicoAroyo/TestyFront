@@ -1,77 +1,93 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { BackendService } from "../../service/backendService";
+import { ReportsView } from "./reports/ReportsView";
 import "../../sass/AdminView.scss";
 
 export const AdminView = () => {
   const [topics, setTopics] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState("None");
+  const [user, setUser] = useState({});
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const service = new BackendService("topics");
+    const topicsService = new BackendService("topics");
+    const userService = new BackendService("users");
     (async () => {
-      const data = await service.getAllAsync();
-      setTopics(data);
+      const topicsData = await topicsService.getAllAsync();
+      setTopics(topicsData);
+      const userData = await userService.getByIdAsync(id);
+      setUser(userData);
     })();
   }, []);
 
   return (
     <>
-      <div className="menu">
-        {/* <Button onClick={() => navigate(-1)}>Back</Button> */}
-        <form className="select-topic">
-          <label>topic</label>
-          <select
-            sx={{ width: 300 }}
-            label="topic"
-            defaultValue={"None"}
-            onChange={(e) => setSelectedTopic(e.target.value)}
-          >
-            <option>None</option>;
-            {(topics || []).map((topic) => {
-              return (
-                <option key={topic.id} value={topic.id}>
-                  {topic.name}
-                </option>
-              );
-            })}
-          </select>
-        </form>
+      <AdminNav
+        navigate={navigate}
+        selectedTopic={selectedTopic}
+        setSelectedTopic={setSelectedTopic}
+        topics={topics}
+      />
+      <AdminWelcome user={user} />
+    </>
+  );
+};
 
-        <div>
-          <Button
-            onClick={() => navigate(`/${selectedTopic}/questions/`)}
-            disabled={selectedTopic === "None"}
-          >
-            manage questions
-          </Button>
+const AdminWelcome = ({ user }) => {
+  return (
+    <div className="welcome">
+      <h1>Welcome back {user.firstName}</h1>
+    </div>
+  );
+};
 
-          <Button
-            onClick={() => navigate(`/${selectedTopic}/tests/`)}
-            disabled={selectedTopic === "None"}
-          >
-            manage tests
-          </Button>
+const AdminNav = ({ selectedTopic, setSelectedTopic, topics, navigate }) => {
+  return (
+    <div className="menu">
+      {/* <Button onClick={() => navigate(-1)}>Back</Button> */}
+      <form className="select-topic">
+        <label>topic</label>
+        <select
+          sx={{ width: 300 }}
+          label="topic"
+          defaultValue={"None"}
+          onChange={(e) => setSelectedTopic(e.target.value)}
+        >
+          <option>None</option>;
+          {topics.map((topic) => {
+            return (
+              <option key={topic._id} value={topic.id}>
+                {topic.name}
+              </option>
+            );
+          })}
+        </select>
+      </form>
 
-<<<<<<< HEAD
-          <Button
-            onClick={() => navigate("reports")}
-            disabled={selectedTopic === "None"}
-          >
-            reports
-          </Button>
-        </div>
-=======
+      <div className="container">
+        <Button
+          onClick={() => navigate(`/${selectedTopic}/questions/`)}
+          disabled={selectedTopic === "None"}
+        >
+          manage questions
+        </Button>
+
+        <Button
+          onClick={() => navigate(`/${selectedTopic}/tests/`)}
+          disabled={selectedTopic === "None"}
+        >
+          manage tests
+        </Button>
         <Button
           onClick={() => navigate(`/${selectedTopic}/reports/`)}
           disabled={selectedTopic === "None"}
         >
           reports
         </Button>
->>>>>>> 9d6989613ecdd70f2c4dc092d9766e28373b9b62
       </div>
-    </>
+    </div>
   );
 };

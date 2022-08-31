@@ -23,7 +23,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Login />}></Route>
         {/* <Route path="login" element={<Login />}></Route> */}
-        <Route path="/admin" element={<AdminView />}></Route>
+        <Route path="/admin/:id" element={<AdminView />}></Route>
 
         <Route path="/:topic/tests/" element={<ViewTests />}></Route>
         <Route path="/:topic/tests/add" element={<AddTest />}></Route>
@@ -47,7 +47,7 @@ export const App = () => {
         <Route path="take-test/:id" element={<TakeTestView />}></Route>
 
         <Route path="/sign-up" element={<SignUpView />}></Route>
-        <Route path ="/reports-for/:id/" element={< ReportForTestView/>}></Route>
+        <Route path="/reports-for/:id/" element={<ReportForTestView />}></Route>
       </Routes>
     </>
   );

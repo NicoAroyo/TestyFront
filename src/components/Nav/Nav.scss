@@ -1,0 +1,11 @@
+@import "../../sass/variables.scss";
+
+.nav {
+  height: 10vh;
+  color: black;
+  background-color: $blue;
+  display: flex;
+  position: sticky;
+  align-items: center;
+  justify-content: space-around;
+}
