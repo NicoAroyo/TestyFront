@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 import { AnswerForm } from "./AnswerForm";
 import "../../../sass/AddQuestion.scss";
@@ -14,6 +14,7 @@ export const AddQuestionView = () => {
   const [answers, setAnswers] = useState([
     { id: 1, content: "", isCorrect: false },
   ]);
+  const navigate = useNavigate();
 
   const deleteAnswer = (e, answerId) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ export const AddQuestionView = () => {
     question.topic = topic;
     try {
       await questionService.postAsync(question);
+      navigate(-1);
     } catch (error) {
       console.error(error);
     }
@@ -189,7 +191,8 @@ export const AddQuestionView = () => {
             </Table>
           </div>
         </div>
-        <Button onClick={(e) => submitForm(e)}>submit</Button>
+        <Button onClick={(e) => submitForm(e)}>Save Question</Button>
+        <Button onClick={() => navigate(-1)}>Back</Button>
       </div>
     </main>
   );
