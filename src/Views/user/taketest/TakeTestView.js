@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 export const TakeTestView = () => {
-  const { id } = useParams();
+  const { testId,userId } = useParams();
   const [test, setTest] = useState();
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState([]);
@@ -12,7 +12,7 @@ export const TakeTestView = () => {
   useEffect(() => {
     const service = new BackendService("quizes");
     (async () => {
-      const data = await service.getByIdAsync(id);
+      const data = await service.getByIdAsync(testId);
       setTest(data);
       setQuestions(data.questions);
     })();

@@ -98,7 +98,7 @@ export const AddQuestionView = () => {
                     })
                   }
                 />
-                <Label> Vertical</Label>
+                <label> Vertical</label>
               </div>
               <div className="add__radio">
                 <Input

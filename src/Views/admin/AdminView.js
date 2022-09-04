@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { BackendService } from "../../service/backendService";
-
 import { ReportsView } from "./reports/ReportsView";
 import "../../sass/AdminView.scss";
-
 
 export const AdminView = () => {
   const [topics, setTopics] = useState([]);
@@ -27,35 +25,6 @@ export const AdminView = () => {
 
   return (
     <>
-
-      {/* <Button onClick={() => navigate(-1)}>Back</Button> */}
-      <form>
-        <h2>Choose a topic</h2>
-        <select
-          defaultValue={"None"}
-          onChange={(e) => setSelectedTopic(e.target.value)}
-        >
-          <option>None</option>;
-          <Topics topics={topics} />
-        </select>
-      </form>
-
-      <div>
-        <Button
-          onClick={() => navigate(`/${selectedTopic}/questions/`)}
-          disabled={selectedTopic === "None"}
-        >
-          manage questions
-        </Button>
-
-        <Button
-          onClick={() => navigate(`/${selectedTopic}/tests/`)}
-          disabled={selectedTopic === "None"}
-        >
-          manage tests
-        </Button>
-
-
       <AdminNav
         navigate={navigate}
         selectedTopic={selectedTopic}
@@ -79,7 +48,7 @@ const AdminNav = ({ selectedTopic, setSelectedTopic, topics, navigate }) => {
   return (
     <div className="menu">
       {/* <Button onClick={() => navigate(-1)}>Back</Button> */}
-      <form className="select-topic">
+      <div className="select-topic">
         <label>topic</label>
         <select
           sx={{ width: 300 }}
@@ -96,7 +65,7 @@ const AdminNav = ({ selectedTopic, setSelectedTopic, topics, navigate }) => {
             );
           })}
         </select>
-      </form>
+      </div>
 
       <div className="container">
         <Button
@@ -112,7 +81,6 @@ const AdminNav = ({ selectedTopic, setSelectedTopic, topics, navigate }) => {
         >
           manage tests
         </Button>
-
         <Button
           onClick={() => navigate(`/${selectedTopic}/reports/`)}
           disabled={selectedTopic === "None"}
@@ -121,19 +89,5 @@ const AdminNav = ({ selectedTopic, setSelectedTopic, topics, navigate }) => {
         </Button>
       </div>
     </div>
-  );
-};
-
-export const Topics = ({ topics }) => {
-  return (
-    <>
-      {topics.map((topic) => {
-        return (
-          <option key={topic.id} value={topic.id}>
-            {topic.name}
-          </option>
-        );
-      })}
-    </>
   );
 };
