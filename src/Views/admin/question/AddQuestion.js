@@ -36,7 +36,8 @@ export const AddQuestionView = () => {
 
   return (
     <main className="add">
-      <h3>topic: {topic}</h3>
+      <h3>Add Question</h3>
+      <h2>topic: {topic}</h2>
       <div className="add__form">
         <div className="add__form-group">
           <div className="add__content">

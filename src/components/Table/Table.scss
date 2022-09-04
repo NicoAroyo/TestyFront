@@ -11,6 +11,10 @@
   margin-bottom: 1rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
+  // thead {
+  //   position: static;
+  // }
+
   thead th {
     font-family: $secondary-font;
     font-weight: 600;
@@ -30,6 +34,8 @@
   th,
   td {
     padding: 12px 15px;
+    font-family: $primary-font;
+    font-size: 1rem;
   }
 
   tbody tr {

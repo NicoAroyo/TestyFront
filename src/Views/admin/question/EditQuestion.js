@@ -29,7 +29,7 @@ export const EditQuestionView = () => {
         console.error(error);
       }
     })();
-  }, []);
+  }, [id]);
 
   const deleteAnswer = (e, answerId) => {
     e.preventDefault();
@@ -41,6 +41,7 @@ export const EditQuestionView = () => {
     e.preventDefault();
     const questionService = new BackendService("questions");
     question.answers = answers;
+    navigate(-1);
     try {
       questionService.patchAsync(question, id);
     } catch (error) {
@@ -221,7 +222,7 @@ export const EditQuestionView = () => {
                 </tbody>
               </Table>
             </div>
-            <Button onClick={(e) => submitForm(e)}>submit</Button>
+            <Button onClick={(e) => submitForm(e)}>Save Changes</Button>
           </div>
         </div>
       </main>

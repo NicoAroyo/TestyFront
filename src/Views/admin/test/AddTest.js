@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
+import { Header } from "../../../components/Header/Header";
+import { Label } from "../../../components/Label/Label";
+import { Input, Textarea } from "../../../components/Input/Input";
+import { Button } from "../../../components/Button/Button";
+import "../../../sass/AddTest.scss";
 
 export const AddTest = () => {
   const { topic } = useParams();
@@ -13,21 +18,13 @@ export const AddTest = () => {
   });
 
   useEffect(() => {
-    // const topicService = new BackendService("topics");
-    //IIFE - immediately invoked function expression
-    // (async () => {
-    //   const topic = await topicService.getByIdAsync(+topicName);
-    //   setTopic(topic.name);
-    // })();
+    (async () => {
+      const questionService = new BackendService("questions");
+      const data = await questionService.getAllAsync();
+      console.log(data);
+      setQuestions(data);
+    })();
   }, []);
-
-  const selectQuestions = async (e) => {
-    e.preventDefault();
-    const questionService = new BackendService("questions");
-    const data = await questionService.getAllAsync();
-    console.log(data);
-    setQuestions(data);
-  };
 
   const selectQuestion = async (checked, question) => {
     if (checked) {
@@ -54,100 +51,126 @@ export const AddTest = () => {
 
   return (
     <>
-      <div>
-        <h2>add new test</h2>
+      <main className="add-test">
+        <Header>add new test</Header>
         <h3>topic: {topic}</h3>
-        <form>
+        <div className="form">
           <div>
-            <label>language</label>
-            <select
-              defaultValue={"eng"}
-              onChange={(e) =>
-                setNewTest({ ...newTest, language: e.target.value })
-              }
-            >
-              <option value={"eng"}>English</option>
-              <option value={"heb"}>Hebrew</option>
-            </select>
-          </div>
-
-          <div>
-            <label>test name</label>
-            <input
-              onChange={(e) => setNewTest({ ...newTest, name: e.target.value })}
-              value={newTest?.name ?? ""}
-            ></input>
-          </div>
-
-          <div>
-            <label>passing grade</label>
-            <input
-              onChange={(e) =>
-                setNewTest({ ...newTest, passingGrade: +e.target.value })
-              }
-              type={"number"}
-              value={newTest?.passingGrade ?? ""}
-            ></input>
-          </div>
-
-          <div>
-            <label>show correct answers after submission</label>
-            <input
-              type={"checkbox"}
-              onChange={(e) =>
-                setNewTest({ ...newTest, showAnswers: e.target.checked })
-              }
-            ></input>
-          </div>
-
-          <div>
-            <label>instructions</label>
-            <textarea
-              value={newTest?.instructions ?? ""}
-              onChange={(e) =>
-                setNewTest({ ...newTest, instructions: e.target.value })
-              }
-            ></textarea>
-          </div>
-
-          <div>
-            <label>on success</label>
-            <textarea
-              value={newTest?.passText ?? ""}
-              onChange={(e) =>
-                setNewTest({ ...newTest, passText: e.target.value })
-              }
-            ></textarea>
-          </div>
-
-          <div>
-            <label>on fail</label>
-            <textarea
-              value={newTest?.failText ?? ""}
-              onChange={(e) =>
-                setNewTest({ ...newTest, failText: e.target.value })
-              }
-            ></textarea>
-          </div>
-
-          <button onClick={(e) => submitForm(e)}>submit</button>
-        </form>
-      </div>
-      <button onClick={(e) => selectQuestions(e)}>Select questions</button>
-      <div>
-        {questions.map((question) => {
-          return (
-            <div key={question._id}>
-              <input
-                type={"checkbox"}
-                onChange={(e) => selectQuestion(e.target.checked, question)}
-              ></input>
-              <span>{question.content}</span>
+            <div className="add-test__language">
+              <Label>Language:</Label>
+              <select
+                sx={{ width: 300 }}
+                label={"language"}
+                defaultValue={"eng"}
+                onChange={(e) =>
+                  setNewTest({ ...newTest, language: e.target.value })
+                }
+              >
+                <option value={"eng"}>English</option>
+                <option value={"heb"}>Hebrew</option>
+              </select>
             </div>
-          );
-        })}
-      </div>
-      <button onClick={() => navigate(-1)}>Back</button>
+
+            <div className="flex-row">
+              <div className="add-test__form-group">
+                <Label>Test Name:</Label>
+                <Input
+                  type="text"
+                  onChange={(e) =>
+                    setNewTest({ ...newTest, name: e.target.value })
+                  }
+                  value={newTest?.name ?? ""}
+                ></Input>
+              </div>
+
+              <div className="add-test__form-group">
+                <Label>Passing Grade</Label>
+                <Input
+                  onChange={(e) =>
+                    setNewTest({ ...newTest, passingGrade: +e.target.value })
+                  }
+                  type={"number"}
+                  value={newTest?.passingGrade ?? ""}
+                ></Input>
+              </div>
+            </div>
+
+            <div className="add-test__form-group">
+              <div className="add-test__checkbox-group">
+                <Input
+                  type={"checkbox"}
+                  onChange={(e) =>
+                    setNewTest({ ...newTest, showAnswers: e.target.checked })
+                  }
+                ></Input>
+                <Label>show correct answers after submission</Label>
+              </div>
+            </div>
+
+            <div className="add-test__form-group">
+              <Label>instructions</Label>
+              <Textarea
+                value={newTest?.instructions ?? ""}
+                onChange={(e) =>
+                  setNewTest({ ...newTest, instructions: e.target.value })
+                }
+              ></Textarea>
+            </div>
+
+            <div className="add-test__form-group">
+              <Label>on success text</Label>
+              <Textarea
+                value={newTest?.passText ?? ""}
+                onChange={(e) =>
+                  setNewTest({ ...newTest, passText: e.target.value })
+                }
+              ></Textarea>
+            </div>
+
+            <div className="add-test__form-group">
+              <Label>on fail text</Label>
+              <Textarea
+                value={newTest?.failText ?? ""}
+                onChange={(e) =>
+                  setNewTest({ ...newTest, failText: e.target.value })
+                }
+              ></Textarea>
+            </div>
+            <div className="add-test__btn-container">
+              <Button onClick={(e) => submitForm(e)}>Save Quiz</Button>
+              <Button onClick={() => navigate(-1)}>Back</Button>
+            </div>
+          </div>
+
+          <div className="select-questions">
+            <Header>Select Questions:</Header>
+            <div className="add-test__questions">
+              {questions.map((question) => {
+                return (
+                  <div key={question._id} className="add-test__answers-group">
+                    <Input
+                      type={"checkbox"}
+                      onChange={(e) =>
+                        selectQuestion(e.target.checked, question)
+                      }
+                    ></Input>
+                    <div className="questions__answers">
+                      <p>{question.content}</p>
+                      {question.answers.map((answer, ind) => {
+                        return (
+                          <p>
+                            {ind + 1}. {answer.content}
+                          </p>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </main>
     </>
   );
 };

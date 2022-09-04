@@ -28,9 +28,9 @@ export const AnswerForm = ({
           }}
         ></Input>
       </td>
+
       <td>
         <Textarea
-          style={{ backgroundColor: "#fff" }}
           type="text"
           defaultValue={answer.content}
           onChange={(e) => {

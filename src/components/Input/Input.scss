@@ -1,6 +1,7 @@
 @import "../../sass/variables.scss";
 
-.input[type="text"] {
+.input[type="text"],
+.input[type="number"] {
   // font-family: $primary-font;
   // width: 20rem;
   // background-color: $light-pink;
