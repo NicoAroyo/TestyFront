@@ -18,7 +18,8 @@
   }
 
   thead > tr {
-    background-color: $light-pink;
+    background-color: $gray;
+    color: $color-white;
     // text-align: center;
   }
 
@@ -36,11 +37,11 @@
   }
 
   tbody tr:nth-of-type(even) {
-    background-color: $light-pink;
+    background-color: $table-gray-1;
   }
 
   tbody tr:nth-of-type(odd) {
-    background-color: $dark-pink;
+    background-color: $table-gray-2;
   }
 
   tbody tr:last-of-type {

@@ -105,7 +105,7 @@ export const EditQuestionView = () => {
                       setQuestion({ ...question, type: e.target.value });
                     }}
                   />
-                  <Label> Multiple choice</Label>
+                  <label> Multiple choice</label>
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@ export const EditQuestionView = () => {
                       })
                     }
                   />
-                  <Label> Vertical</Label>
+                  <label> Vertical</label>
                 </div>
 
                 <div className="add__radio">
