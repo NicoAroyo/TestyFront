@@ -21,12 +21,11 @@ export const AddTest = () => {
     (async () => {
       const questionService = new BackendService("questions");
       const data = await questionService.getAllAsync();
-      console.log(data);
       setQuestions(data);
     })();
   }, []);
 
-  const selectQuestion = async (checked, question) => {
+  const selectQuestion = (checked, question) => {
     if (checked) {
       setSelectedQuestions([...selectedQuestions, question]);
     } else {
@@ -136,6 +135,7 @@ export const AddTest = () => {
                 }
               ></Textarea>
             </div>
+
             <div className="add-test__btn-container">
               <Button onClick={(e) => submitForm(e)}>Save Quiz</Button>
               <Button onClick={() => navigate(-1)}>Back</Button>
@@ -158,7 +158,7 @@ export const AddTest = () => {
                       <p>{question.content}</p>
                       {question.answers.map((answer, ind) => {
                         return (
-                          <p>
+                          <p key={ind}>
                             {ind + 1}. {answer.content}
                           </p>
                         );

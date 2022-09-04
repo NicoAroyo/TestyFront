@@ -4,6 +4,7 @@ import { BackendService } from "../../../service/backendService";
 import { Button, SmallButton } from "../../../components/Button/Button";
 // import "../../../sass/ViewTests.scss";
 import { Table } from "../../../components/Table/Table";
+import { Modal } from "../../../components/Modal/Modal";
 
 export const ViewTests = () => {
   const { topic } = useParams();
@@ -26,7 +27,6 @@ export const ViewTests = () => {
     try {
       setTests(tests.filter((x) => x._id !== id));
       const res = await service.deleteAsync(id);
-      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +56,12 @@ export const ViewTests = () => {
           <tbody>
             {tests.map((test) => {
               return (
-                <Test navigate={navigate} test={test} deleteTest={deleteTest} />
+                <Test
+                  key={test._id}
+                  navigate={navigate}
+                  test={test}
+                  deleteTest={deleteTest}
+                />
               );
             })}
           </tbody>
@@ -67,12 +72,33 @@ export const ViewTests = () => {
 };
 
 const Test = ({ test, navigate, deleteTest }) => {
+  const [open, setOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+
+  const openModal = () => {
+    setModalText(`Are you sure you want to delete quiz "${test.name}"`);
+    setOpen(true);
+  };
+
+  const confirmDelete = () => {
+    deleteTest(test._id);
+    setOpen(false);
+  };
+
   return (
-    <tr key={test._id}>
-      <td>{test.name}</td>
-      <td>{test.questions.length}</td>
-      <td>{test.passingGrade}</td>
-      <td>
+    <>
+      <Modal
+        header={`Confirm Delete`}
+        display={open}
+        confirm={(e) => confirmDelete(e)}
+        cancel={() => setOpen(false)}
+        buttonContent={"Confirm"}
+        content={modalText}
+      ></Modal>
+      <tr key={test._id}>
+        <td>{test.name}</td>
+        <td>{test.questions.length}</td>
+        <td>{test.passingGrade}</td>
         <td className="question__button-container">
           <SmallButton onClick={() => navigate(`edit/${test._id}`)}>
             edit
@@ -80,9 +106,9 @@ const Test = ({ test, navigate, deleteTest }) => {
           <SmallButton onClick={() => navigate(`details/${test._id}`)}>
             details
           </SmallButton>
-          <SmallButton onClick={() => deleteTest(test._id)}>delete</SmallButton>
+          <SmallButton onClick={openModal}>delete</SmallButton>
         </td>
-      </td>
-    </tr>
+      </tr>
+    </>
   );
 };

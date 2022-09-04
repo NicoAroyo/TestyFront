@@ -5,6 +5,7 @@ import { Button, SmallButton } from "../../../components/Button/Button";
 import "../../../sass/ViewQuestions.scss";
 import { Table } from "../../../components/Table/Table";
 import { Modal } from "../../../components/Modal/Modal";
+
 export const ManageQuestionsView = () => {
   const { topic } = useParams();
   const [questions, setQuestions] = useState([]);
@@ -75,9 +76,11 @@ const Question = ({ question, deleteQuestion }) => {
   const [open, setOpen] = useState(false);
   const [modalText, setModalText] = useState("");
 
-  const openModal = (e, content) => {
+  const openModal = (e) => {
     e.stopPropagation();
-    setModalText(`Are you sure you want to delete question" ${content}"`);
+    setModalText(
+      `Are you sure you want to delete question "${question.content}"`
+    );
     setOpen(true);
   };
 
@@ -100,9 +103,7 @@ const Question = ({ question, deleteQuestion }) => {
         <td>{question.content}</td>
         <td>{question.type}</td>
         <td className="question__button-container">
-          <SmallButton onClick={(e) => openModal(e, question.content)}>
-            delete
-          </SmallButton>
+          <SmallButton onClick={openModal}>delete</SmallButton>
           <SmallButton onClick={() => navigate(`edit/${question._id}`)}>
             edit
           </SmallButton>
