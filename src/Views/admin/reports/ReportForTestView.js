@@ -35,7 +35,8 @@ export const ReportForTestView = () => {
 
   return (
     <> 
-    <div> {quiz.name} reports </div>
+    <div> reports </div>
+    <h2>h2</h2>
     <table>
         <thead>
             <tr>
@@ -50,6 +51,8 @@ export const ReportForTestView = () => {
         <tbody>
             {
                 reports.map((report) =>  {
+                    console.log(quiz);
+                    console.log(reports);
                     return(
                         <tr>
                             <td>{report.user.firstName} {report.user.lastName}</td>
