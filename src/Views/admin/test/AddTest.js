@@ -43,6 +43,7 @@ export const AddTest = () => {
     console.log(newTest);
     try {
       await quizService.postAsync(newTest);
+      navigate(-1);
     } catch (error) {
       console.error(error);
     }

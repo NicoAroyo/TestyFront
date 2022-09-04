@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
+import "../../../sass/DetailsTest.scss";
+import { Label } from "../../../components/Label/Label";
 
 export const DetailsTest = () => {
   const { id, topic } = useParams();
@@ -17,35 +19,39 @@ export const DetailsTest = () => {
 
   return (
     <>
-      <div>
-        <h2>topic: {topic}</h2>
-        <h2>name: {test.name}</h2>
-        <h2>language: {test.language}</h2>
-        <h2>passing grade: {test.passingGrade}</h2>
-        <h2>showAnswers: {test.showAnswers}</h2>
-        <h2>instructions: {test.instructions}</h2>
-        <h2>passText: {test.passText}</h2>
-        <h2>failText: {test.failText}</h2>
-        <h2>questions:</h2>
-        {test?.questions?.map((q, ind) => {
-          return (
-            <div key={q._id}>
-              <h4>
-                {ind + 1}:{q.content}
-              </h4>
-              {q?.answers?.map((a) => {
-                return (
-                  <div key={a.id}>
-                    <p>
-                      {a.id}: {a.content}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
-      </div>
+      <main className="test__details__main">
+        <div className="details__main">
+          <Label>topic: {topic}</Label>
+          <Label>name: {test.name}</Label>
+          <Label>language: {test.language}</Label>
+          <Label>passing grade: {test.passingGrade}</Label>
+          <Label>showAnswers: {test.showAnswers}</Label>
+          <Label>instructions: {test.instructions}</Label>
+          <Label>passText: {test.passText}</Label>
+          <Label>failText: {test.failText}</Label>
+          <Label>questions:</Label>
+        </div>
+        <div className="questions__and__answers">
+          {test?.questions?.map((q, ind) => {
+            return (
+              <div className="question__details" key={q._id}>
+                <h4>
+                  {ind + 1}:{q.content}
+                </h4>
+                {q?.answers?.map((a) => {
+                  return (
+                    <div key={a.id}>
+                      <p>
+                        {a.id}: {a.content}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </main>
     </>
   );
 };
