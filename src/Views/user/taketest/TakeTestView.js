@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 export const TakeTestView = () => {
-  const { testId,userId } = useParams();
+  const {  userId ,  testId} = useParams();
   const [test, setTest] = useState();
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState([]);
+  const [selectedAnswers, setSelectedAnswer] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,20 +28,45 @@ export const TakeTestView = () => {
     if (currentQuestion.type === "singleChoice") {
       //uncheck all others
       currentQuestion.answers.forEach((a) => (a.checked = false));
+      
     }
 
     answer.checked = e.target.checked;
+
+    
 
     //save changes to state
     setCurrentQuestion({
       ...currentQuestion,
       answers: currentQuestion.answers,
     });
+    setSelectedAnswer([...selectedAnswers.filter((q) => q.question.id === currentQuestion.id), {question : currentQuestion , answer : answer}]);
   };
 
-  const submitTest = () => {
+  const submitTest = async() => {
+    console.log(selectedAnswers);
+    const qgrade = calculateGrade(); 
+    console.log(qgrade);
+    const report = {grade :  qgrade , studentId : userId , quizId : testId , date : Date.now() }
+    console.log(report);
+    const service = new BackendService("reports"); 
+     await service.postAsync(report); 
     console.log("congratulations");
   };
+
+  const calculateGrade = () => {
+    console.log(selectedAnswers);
+    let grade = 0; 
+    const scorePerQuestion = 100 / questions.length;
+    selectedAnswers.forEach(q => {
+      if(q.answer.isCorrect)
+      {
+        grade += scorePerQuestion; 
+      }
+    });
+    console.log(grade);
+    return grade; 
+  }
 
   return (
     <>
