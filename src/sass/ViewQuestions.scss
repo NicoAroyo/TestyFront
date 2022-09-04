@@ -1,0 +1,47 @@
+@import "../sass/variables.scss";
+
+nav {
+  justify-content: space-between;
+
+  h3 {
+    margin-left: 1rem;
+  }
+
+  .nav__button-container {
+    margin-right: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+}
+.question__button-container {
+  width: fit-content;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    height: 2rem;
+    width: 5rem;
+  }
+}
+
+.question__answers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.view__main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  table {
+    width: 65%;
+  }
+
+  h2 {
+    color: $light-pink;
+  }
+}

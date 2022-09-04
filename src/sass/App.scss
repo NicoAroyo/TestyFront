@@ -2,9 +2,25 @@
 
 * {
   margin: 0;
+  font-family: $primary-font;
+}
+
+html {
+  background-color: $gray;
 }
 
 body {
-  background: $background-pink;
+  // background: $baby-blue-1;
   height: 100vh;
 }
+
+nav {
+  height: 10vh;
+  color: black;
+  background-color: $blue;
+  display: flex;
+  position: sticky;
+  align-items: center;
+}
+
+

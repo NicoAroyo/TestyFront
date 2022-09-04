@@ -1,0 +1,49 @@
+@import "../../sass/variables.scss";
+
+//////
+.table {
+  font-family: $primary-font;
+  border-right: 3px solid $blue;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+  thead th {
+    font-family: $secondary-font;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  thead > tr {
+    background-color: $light-pink;
+    // text-align: center;
+  }
+
+  td {
+    height: 2rem;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $blue;
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: $light-pink;
+  }
+
+  tbody tr:nth-of-type(odd) {
+    background-color: $dark-pink;
+  }
+
+  tbody tr:last-of-type {
+    border-bottom: 3px solid $blue;
+  }
+}

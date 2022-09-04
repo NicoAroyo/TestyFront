@@ -1,0 +1,94 @@
+@import "./variables.scss";
+
+.add {
+  background-color: $baby-blue-2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    font-size: 2rem;
+    margin: 2rem 0;
+  }
+}
+.add_radio-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .label {
+    margin-bottom: 5px;
+  }
+}
+.add__radio {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.between {
+  display: flex;
+  align-self: flex-start;
+  gap: 7rem;
+}
+
+.add__explanation {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.add__explanation-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.add__content {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    align-self: flex-start;
+    margin-bottom: 5px;
+  }
+}
+
+.add__answers {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .add__answers__group {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    gap: 3rem;
+  }
+
+  .label {
+    margin-bottom: 1rem;
+  }
+}
+
+.add__form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.add__form-group {
+  display: flex;
+
+  gap: 1rem;
+}
+
+.answer {
+  display: flex;
+  align-items: center;
+
+  .asnwer__checkbox {
+    display: flex;
+    flex-direction: column;
+  }
+}

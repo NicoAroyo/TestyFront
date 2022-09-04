@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 import { AnswerForm } from "./AnswerForm";
+import "../../../sass/AddQuestion.scss";
+import { Input, Textarea } from "../../../components/Input/Input";
+import { Label } from "../../../components/Label/Label";
+import { Button, SmallButton } from "../../../components/Button/Button";
+import { Table } from "../../../components/Table/Table";
 
 export const AddQuestionView = () => {
   const { topic } = useParams();
@@ -30,128 +35,161 @@ export const AddQuestionView = () => {
   };
 
   return (
-    <>
+    <main className="add">
       <h3>topic: {topic}</h3>
-      <form>
-        <div>
-          <label>question content:</label>
-          <input
-            type="text"
-            value={question?.content ?? ""}
-            onChange={(e) =>
-              setQuestion({ ...question, content: e.target.value })
-            }
-          ></input>
-        </div>
-
-        <div>
-          <label>question type:</label>
-          <div>
-            <input
-              type="radio"
-              value="singleChoice"
-              name="questionType"
-              onChange={(e) => {
-                setAnswers([{ id: 1, content: "", isCorrect: false }]);
-                setQuestion({ ...question, type: e.target.value });
-              }}
-            />
-            Single choice
-            <input
-              type="radio"
-              value="multChoice"
-              name="questionType"
-              onChange={(e) => {
-                setAnswers([{ id: 1, content: "", isCorrect: false }]);
-                setQuestion({ ...question, type: e.target.value });
-              }}
-            />
-            Multiple choices
+      <div className="add__form">
+        <div className="add__form-group">
+          <div className="add__content">
+            <Label>question content:</Label>
+            <Textarea
+              type="text"
+              placeholder={"what's 2+2?"}
+              value={question?.content ?? ""}
+              onChange={(e) =>
+                setQuestion({ ...question, content: e.target.value })
+              }
+            ></Textarea>
           </div>
         </div>
 
-        <div>
-          <label>Display</label>
-          <div>
-            <input
-              type="radio"
-              value="Vertical"
-              name="display"
-              onChange={(e) =>
-                setQuestion({
-                  ...question,
-                  displayVertically: e.target.checked,
-                })
-              }
-            />
-            Vertical
-            <input
-              type="radio"
-              value="Horizontal"
-              name="display"
-              onChange={(e) =>
-                setQuestion({
-                  ...question,
-                  displayVertically: e.target.checked,
-                })
-              }
-            />
-            Horizontal
-          </div>
-        </div>
-
-        <div>
-          <input
-            type={"checkbox"}
-            onChange={(e) =>
-              setQuestion({ ...question, allowExplanation: e.target.checked })
-            }
-          ></input>
-          {question.allowExplanation && (
-            <>
-              <label>Explanation:</label>
-              <textarea
-                onChange={(e) =>
-                  setQuestion({ ...question, explanation: e.target.value })
-                }
-              ></textarea>
-            </>
-          )}
-          <label>Allow Explanation</label>
-        </div>
-
-        <div>
-          <label>Answers</label>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              const newAnswer = {
-                id: answers[answers.length - 1].id + 1,
-                content: "",
-                isCorrect: false,
-              };
-              setAnswers([...answers, newAnswer]);
-            }}
-          >
-            Add answer
-          </button>
-          <div>
-            {answers.map((answer) => {
-              return (
-                <AnswerForm
-                  key={answer.id}
-                  answer={answer}
-                  answers={answers}
-                  type={question.type}
-                  setAnswers={setAnswers}
-                  deleteAnswer={deleteAnswer}
+        <div className="between">
+          <div className="add__form-group">
+            <div className="add_radio-wrapper">
+              <Label>Question type:</Label>
+              <div className="add__radio">
+                <Input
+                  type="radio"
+                  value="singleChoice"
+                  name="questionType"
+                  onChange={(e) => {
+                    setAnswers([{ id: 1, content: "", isCorrect: false }]);
+                    setQuestion({ ...question, type: e.target.value });
+                  }}
                 />
-              );
-            })}
+                <label> Single choice</label>
+              </div>
+              <div className="add__radio">
+                <Input
+                  type="radio"
+                  value="multChoice"
+                  name="questionType"
+                  onChange={(e) => {
+                    setAnswers([{ id: 1, content: "", isCorrect: false }]);
+                    setQuestion({ ...question, type: e.target.value });
+                  }}
+                />
+                <label>Multiple choices</label>
+              </div>
+            </div>
+          </div>
+
+          <div className="add__form-group">
+            <div className="add_radio-wrapper">
+              <Label>Display:</Label>
+              <div className="add__radio">
+                <Input
+                  type="radio"
+                  value="Vertical"
+                  name="display"
+                  onChange={(e) =>
+                    setQuestion({
+                      ...question,
+                      displayVertically: e.target.checked,
+                    })
+                  }
+                />
+                <Label> Vertical</Label>
+              </div>
+              <div className="add__radio">
+                <Input
+                  type="radio"
+                  value="Horizontal"
+                  name="display"
+                  onChange={(e) =>
+                    setQuestion({
+                      ...question,
+                      displayVertically: e.target.checked,
+                    })
+                  }
+                />
+                <label>Horizontal</label>
+              </div>
+            </div>
           </div>
         </div>
-        <button onClick={(e) => submitForm(e)}>submit</button>
-      </form>
-    </>
+
+        <div className="add__form-group">
+          <div className="add__explanation-wrapper">
+            <div className="add__explanation">
+              <Input
+                type={"checkbox"}
+                onChange={(e) =>
+                  setQuestion({
+                    ...question,
+                    allowExplanation: e.target.checked,
+                  })
+                }
+              ></Input>
+              <Label>Allow Explanation</Label>
+            </div>
+            {question.allowExplanation && (
+              <div className="add__content">
+                <Textarea
+                  placeholder={"explanation"}
+                  onChange={(e) =>
+                    setQuestion({ ...question, explanation: e.target.value })
+                  }
+                ></Textarea>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="add__answers">
+          <div className="add__answers__group">
+            <Label>Answers</Label>
+            <SmallButton
+              onClick={(e) => {
+                e.preventDefault();
+                const newAnswer = {
+                  id: answers[answers.length - 1].id + 1,
+                  content: "",
+                  isCorrect: false,
+                };
+                setAnswers([...answers, newAnswer]);
+              }}
+            >
+              Add answer
+            </SmallButton>
+          </div>
+          <div>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Correct</th>
+                  <th>Content</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {answers.map((answer) => {
+                  return (
+                    <AnswerForm
+                      key={answer.id}
+                      answer={answer}
+                      answers={answers}
+                      type={question.type}
+                      setAnswers={setAnswers}
+                      deleteAnswer={deleteAnswer}
+                    />
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
+        </div>
+        <Button onClick={(e) => submitForm(e)}>submit</Button>
+      </div>
+    </main>
   );
 };

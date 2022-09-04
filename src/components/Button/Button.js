@@ -8,3 +8,11 @@ export const Button = (props) => {
     </button>
   );
 };
+
+export const SmallButton = (props) => {
+  return (
+    <button className="btn-small" {...props}>
+      {props.children}
+    </button>
+  );
+};

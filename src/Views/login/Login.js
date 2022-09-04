@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthenticationService } from "../../service/authenticationService";
-import "./Login.scss";
+import "../../sass/Login.scss";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export const Login = () => {
       const { user } = await auth.loginUser({ email, password });
 
       if (user.isAdmin) {
-        navigate("/admin");
+        navigate(`/admin/${user._id}`);
       } else if (!user.isAdmin) {
         navigate(`/choose-test/${user._id}`);
       } else {
@@ -32,24 +32,29 @@ export const Login = () => {
   };
 
   return (
-    <form className="login">
-      <h2>Login to your account</h2>
+    <div className="login-wrapper">
+      <form className="login">
+        <h2>Login to your account</h2>
 
-      <div className="form-group">
-        <label htmlFor="username">Email</label>
-        <input value={email} onChange={(e) => setEmail(e.target.value)}></input>
-      </div>
+        <div className="form-group">
+          <label htmlFor="username">Email</label>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          ></input>
+        </div>
 
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          value={password}
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <button onClick={authenticate}>Login</button>
-        <button onClick={signUp}>Sign Up</button>
-      </div>
-    </form>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            value={password}
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          ></input>
+          <button onClick={authenticate}>Login</button>
+          <button onClick={signUp}>Sign Up</button>
+        </div>
+      </form>
+    </div>
   );
 };
