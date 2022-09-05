@@ -52,10 +52,12 @@ export const TakeTestView = () => {
   const submitTest = async () => {
     console.log(selectedAnswers);
     const qgrade = calculateGrade();
+    const userService = new BackendService("users");
+    const user = await userService.getByIdAsync(userId);
     console.log(qgrade);
     const report = {
       grade: qgrade,
-      studentId: userId,
+      student: user,
       quizId: testId,
       date: Date.now(),
     };
@@ -149,15 +151,17 @@ export const TakeTestView = () => {
               })}
             </div>
           </div>
-          <SmallButton>submit</SmallButton>
-        </footer>
-      </div>
-      {questions.every((q) => q.answers.some((a) => a.chcked)) && (
+          {questions.every((q) => q.answers.some((a) => a.checked)) && (
         <>
+          <SmallButton onClick= {submitTest}>submit</SmallButton>
           <h2>You've finished all the questions, you may submit the test</h2>
-          <button onClick={submitTest}>submit</button>
+          
         </>
       )}
+          
+        </footer>
+      </div>
+    
     </main>
   );
 };
