@@ -50,7 +50,11 @@ export const TakeTestView = () => {
     const report = {grade :  qgrade , studentId : userId , quizId : testId , date : Date.now() }
     console.log(report);
     const service = new BackendService("reports"); 
-     await service.postAsync(report); 
+    try {
+      await service.postAsync(report);
+    } catch (error) {
+      console.error(error);
+    }
     console.log("congratulations");
   };
 
@@ -59,11 +63,32 @@ export const TakeTestView = () => {
     let grade = 0; 
     const scorePerQuestion = 100 / questions.length;
     selectedAnswers.forEach(q => {
+      if(q.question.type === "singleChoice"){
       if(q.answer.isCorrect)
       {
         grade += scorePerQuestion; 
       }
-    });
+    }
+      else 
+      {
+        let scorePerAnswer = scorePerQuestion;
+        let amountOfCorrectAnswers = 0; 
+        q.question.answers.forEach(a => {
+          if(a.isCorrect
+            )
+            amountOfCorrectAnswers += 1;
+        })
+        scorePerAnswer = scorePerAnswer/amountOfCorrectAnswers;
+        
+          if(q.answer.isCorrect)
+          {
+            grade += scorePerAnswer;
+          }
+        
+
+        
+    }
+    })
     console.log(grade);
     return grade; 
   }
