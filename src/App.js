@@ -47,7 +47,7 @@ export const App = () => {
         <Route path="take-test/:id" element={<TakeTestView />}></Route>
 
         <Route path="/sign-up" element={<SignUpView />}></Route>
-        <Route path="/reports-for/:id/" element={<ReportForTestView />}></Route>
+        <Route path="/:topic/reports/reports-for/:id" element={<ReportForTestView />}></Route>
       </Routes>
     </>
   );
