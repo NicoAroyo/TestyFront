@@ -1,0 +1,75 @@
+@import "./variables.scss";
+
+.exam {
+  .header {
+    text-align: center;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .question__content {
+    margin-bottom: 1rem;
+  }
+
+  .exam__question {
+    margin-left: 2rem;
+
+    .question__answers {
+      margin-left: 1rem;
+
+      .question__single-answer {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+  }
+}
+
+.questions-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  padding: 0px 3rem;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: $dark-pink;
+
+  .btn-small {
+    margin-right: 80px;
+  }
+
+  .btn-active {
+    cursor: pointer;
+    background-color: $blue;
+    color: $light-pink;
+    border: 1px solid black;
+  }
+
+  .btn-nav {
+    cursor: pointer;
+    color: $blue;
+    background-color: $light-pink;
+    border: 1px solid black;
+  }
+
+  .navigate {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.questions-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.test-instructions {
+  padding: 1rem 5rem;
+}

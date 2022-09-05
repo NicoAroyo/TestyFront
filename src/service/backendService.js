@@ -24,6 +24,15 @@ export class BackendService {
     }
   }
 
+  async getByTopicAsync(topic) {
+    const response = await fetch(`${this.#url}bytopic/${topic}`);
+    if (response.ok) {
+      return await this.#success(response);
+    } else {
+      this.#failure(response);
+    }
+  }
+
   async postAsync(item) {
     return fetch(this.#url, {
       method: "POST",

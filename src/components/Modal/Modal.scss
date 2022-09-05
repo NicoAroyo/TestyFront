@@ -6,7 +6,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
-  height: 400px;
+  height: 200px;
   border: 2px solid #000;
   box-shadow: 24;
   padding: 4px;
@@ -35,9 +35,8 @@
   align-items: center;
   font-family: $primary-font;
   padding: 2rem;
-
-  .modal__button-container {
-    display: flex;
-    gap: 5rem;
-  }
+}
+.modal__button-container {
+  display: flex;
+  gap: 1.5rem;
 }

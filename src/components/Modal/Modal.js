@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
 import React from "react";
+import { Button } from "../Button/Button";
 import "./Modal.scss";
 
 export const Modal = ({

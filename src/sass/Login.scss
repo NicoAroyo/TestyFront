@@ -74,7 +74,8 @@
   }
 }
 
-.login-wrapper {
+.login-wrapper,
+html {
   background: $gray;
   height: 100vh;
 }
