@@ -50,7 +50,10 @@ export const App = () => {
         ></Route>
 
         <Route path="/sign-up" element={<SignUpView />}></Route>
-        <Route path="/:topic/reports/reports-for/:id" element={<ReportForTestView />}></Route>
+        <Route
+          path="/:topic/reports/reports-for/:id"
+          element={<ReportForTestView />}
+        ></Route>
       </Routes>
     </>
   );
