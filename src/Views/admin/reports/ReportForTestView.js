@@ -7,7 +7,7 @@ import { BackendService } from '../../../service/backendService'
 export const ReportForTestView = () => {
 
     const {topic ,  id}= useParams();
-    const [reports,setReports] = useState();
+    const [reports,setReports] = useState([]);
     const [quiz,setQuiz] = useState();
 
     useEffect(() => {
@@ -33,8 +33,8 @@ export const ReportForTestView = () => {
 
   return (
     <> 
-    <div> reports </div>
-    <h2>h2</h2>
+    <div> reports for : {quiz?.name}</div>
+    
     <table>
         <thead>
             <tr>
@@ -44,16 +44,23 @@ export const ReportForTestView = () => {
                 <th>
                     Grade
                 </th>
+                <th>
+                    Passed
+                </th>
             </tr>
         </thead>
         <tbody>
             {
                 reports?.map((report) =>  {
                     return(
+                        <>
                         <tr>
-                            {/* <td>{report.user.firstName} {report.user.lastName}</td> */}
+                           <td> {report.student.firstName} {report?.student.firstName} </td>
                             <td>{report.grade}</td>
+                           <td>{report.grade > quiz.passingGrade ? <>Yes</> : <>No</>}</td>
+                             
                         </tr>
+                        </>
                     )
                 })          
             }
