@@ -20,10 +20,10 @@ export const AddTest = () => {
   useEffect(() => {
     (async () => {
       const questionService = new BackendService("questions");
-      const data = await questionService.getAllAsync();
+      const data = await questionService.getByTopicAsync(topic);
       setQuestions(data);
     })();
-  }, []);
+  }, [topic]);
 
   const selectQuestion = (checked, question) => {
     if (checked) {
@@ -146,28 +146,32 @@ export const AddTest = () => {
           <div className="select-questions">
             <Header>Select Questions:</Header>
             <div className="add-test__questions">
-              {questions.map((question) => {
-                return (
-                  <div key={question._id} className="add-test__answers-group">
-                    <Input
-                      type={"checkbox"}
-                      onChange={(e) =>
-                        selectQuestion(e.target.checked, question)
-                      }
-                    ></Input>
-                    <div className="questions__answers">
-                      <p>{question.content}</p>
-                      {question.answers.map((answer, ind) => {
-                        return (
-                          <p key={ind}>
-                            {ind + 1}. {answer.content}
-                          </p>
-                        );
-                      })}
+              {questions.length === 0 ? (
+                <h3>No questions found for topic "{topic}"....</h3>
+              ) : (
+                questions.map((question) => {
+                  return (
+                    <div key={question._id} className="add-test__answers-group">
+                      <Input
+                        type={"checkbox"}
+                        onChange={(e) =>
+                          selectQuestion(e.target.checked, question)
+                        }
+                      ></Input>
+                      <div className="questions__answers">
+                        <p>{question.content}</p>
+                        {question.answers.map((answer, ind) => {
+                          return (
+                            <p key={ind}>
+                              {ind + 1}. {answer.content}
+                            </p>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
