@@ -76,6 +76,7 @@ export const AddQuestionView = () => {
                   type="radio"
                   value="multChoice"
                   name="questionType"
+                  checked = "true"
                   onChange={(e) => {
                     setAnswers([{ id: 1, content: "", isCorrect: false }]);
                     setQuestion({ ...question, type: e.target.value });
@@ -94,6 +95,7 @@ export const AddQuestionView = () => {
                   type="radio"
                   value="Vertical"
                   name="display"
+                  checked="true"
                   onChange={(e) =>
                     setQuestion({
                       ...question,
