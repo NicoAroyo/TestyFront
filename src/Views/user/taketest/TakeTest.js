@@ -149,7 +149,6 @@ export const TakeTestView = () => {
               })}
             </div>
           </div>
-          <SmallButton>submit</SmallButton>
         </footer>
       </div>
       {questions.every((q) => q.answers.some((a) => a.chcked)) && (
