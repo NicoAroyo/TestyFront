@@ -15,8 +15,8 @@ export const ManageQuestionsView = () => {
     const questionService = new BackendService("questions");
     (async () => {
       try {
-        const data = await questionService.getAllAsync();
-        setQuestions(data.filter((q) => q.topic === topic));
+        const data = await questionService.getByTopicAsync(topic);
+        setQuestions(data);
       } catch (error) {
         console.error(error);
       }

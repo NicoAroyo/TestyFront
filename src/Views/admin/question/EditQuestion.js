@@ -69,6 +69,7 @@ export const EditQuestionView = () => {
               <Label>Question content:</Label>
               <Textarea
                 type="text"
+                style={{ height: "10rem" }}
                 value={question?.content}
                 onChange={(e) =>
                   setQuestion({ ...question, content: e.target.value })

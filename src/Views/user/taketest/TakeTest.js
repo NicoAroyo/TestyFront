@@ -29,26 +29,19 @@ export const TakeTest = () => {
         const activeQuizData = activeQuizez.find(
           (q) => q?.quiz?._id === testId && q?.user?._id === userId
         );
-        if (activeQuizData) {
-          setActiveQuiz(activeQuizData);
-          setTest(activeQuizData.quiz);
-          setQuestions(activeQuizData.quiz.questions);
-          setCurrentQuestion(activeQuizData.quiz.questions[0]);
-          setUser(activeQuizData.user);
-        } else {
+        if (!activeQuizData) {
           const testData = await quizService.getByIdAsync(testId);
           const userData = await userService.getByIdAsync(userId);
-          setUser(userData);
           const activeQuizData = await activeQuizService.postAsync({
             quiz: testData,
             user: userData,
           });
-          console.log(activeQuizData);
-          setActiveQuiz(activeQuizData);
-          setTest(activeQuizData.quiz);
-          setQuestions(activeQuizData.quiz.questions);
-          setCurrentQuestion(activeQuizData.quiz.questions[0]);
         }
+        setActiveQuiz(activeQuizData);
+        setTest(activeQuizData.quiz);
+        setQuestions(activeQuizData.quiz.questions);
+        setCurrentQuestion(activeQuizData.quiz.questions[0]);
+        setUser(activeQuizData.user);
       } catch (error) {
         console.error(error);
       }

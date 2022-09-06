@@ -45,6 +45,7 @@ export const AddQuestionView = () => {
           <div className="add__content">
             <Label>question content:</Label>
             <Textarea
+              style={{ height: "10rem" }}
               type="text"
               placeholder={"what's 2+2?"}
               value={question?.content ?? ""}
@@ -76,7 +77,6 @@ export const AddQuestionView = () => {
                   type="radio"
                   value="multChoice"
                   name="questionType"
-                  checked = "true"
                   onChange={(e) => {
                     setAnswers([{ id: 1, content: "", isCorrect: false }]);
                     setQuestion({ ...question, type: e.target.value });
@@ -95,7 +95,6 @@ export const AddQuestionView = () => {
                   type="radio"
                   value="Vertical"
                   name="display"
-                  checked="true"
                   onChange={(e) =>
                     setQuestion({
                       ...question,
