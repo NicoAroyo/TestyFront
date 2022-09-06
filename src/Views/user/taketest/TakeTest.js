@@ -19,9 +19,9 @@ export const TakeTestView = () => {
     const quizService = new BackendService("quizes");
     (async () => {
       try {
-        const testData = await quizService.getByIdAsync(testId);
-        setTest(testData);
-        setQuestions(testData.questions);
+        const data = await quizService.getByIdAsync(testId);
+        setTest(data);
+        setQuestions(data.questions);
         setCurrentQuestion(questions[0]);
       } catch (error) {
         console.error(error);
@@ -29,18 +29,19 @@ export const TakeTestView = () => {
     })();
   }, []);
 
-  const selectAnswer = async (e, answer) => {
+  const selectAnswer = (e, answer) => {
     if (currentQuestion.type === "singleChoice") {
       //uncheck all others
       currentQuestion.answers.forEach((a) => (a.checked = false));
     }
+
     answer.checked = e.target.checked;
+
     //save changes to state
-    // setCurrentQuestion({
-    //   ...currentQuestion,
-    //   answers: currentQuestion.answers,
-    // });
-    // console.log(currentQuestion);
+    setCurrentQuestion({
+      ...currentQuestion,
+      answers: currentQuestion.answers,
+    });
 
     setSelectedAnswer([
       ...selectedAnswers.filter((q) => q.question.id === currentQuestion.id),
@@ -49,30 +50,63 @@ export const TakeTestView = () => {
   };
 
   const submitTest = async () => {
+    console.log(selectedAnswers);
     const qgrade = calculateGrade();
     const userService = new BackendService("users");
     const user = await userService.getByIdAsync(userId);
-
-    const reportsService = new BackendService("reports");
-    await reportsService.postAsync({
+    console.log(qgrade);
+    const report = {
       grade: qgrade,
       student: user,
       quizId: testId,
       date: Date.now(),
-    });
+    };
+    console.log(report);
+    const service = new BackendService("reports");
+    await service.postAsync(report);
     console.log("congratulations");
   };
 
   const calculateGrade = () => {
-    let grade = 0;
+    console.log(selectedAnswers);
+    let grade = 0; 
     const scorePerQuestion = 100 / questions.length;
-    selectedAnswers.forEach((q) => {
-      if (q.answer.isCorrect) {
-        grade += scorePerQuestion;
+    selectedAnswers.forEach(q => {
+      if(q.question.type === "singleChoice"){
+      if(q.answer.isCorrect)
+      {
+        grade += scorePerQuestion; 
       }
-    });
-    return grade;
-  };
+    }
+      else 
+      {
+        let scorePerAnswer = scorePerQuestion;
+        let amountOfCorrectAnswers = 0; 
+        q.question.answers.forEach(a => {
+          if(a.isCorrect
+            )
+            amountOfCorrectAnswers += 1;
+        })
+        scorePerAnswer = scorePerAnswer/amountOfCorrectAnswers;
+        let addToGrade = 0;
+        
+          if(q.answer.isCorrect)
+          {
+            addToGrade += scorePerAnswer;
+          }
+          else{
+            addToGrade-= scorePerAnswer;
+          }       
+          
+          if(addToGrade > 0)
+          {
+            grade += addToGrade; 
+          }
+    }
+    })
+    console.log(grade);
+    return grade; 
+  }
 
   //QUESTION NAVIGATION
   const nextQuestion = () => {
@@ -86,12 +120,8 @@ export const TakeTestView = () => {
     setCurrentQuestion(questions[index - 1]);
   };
 
-  const startTest = () => {
-    setStart(true);
-  };
-
   if (!start) {
-    return <Instructions startTest={startTest} test={test} />;
+    return <Instructions setStart={setStart} test={test} />;
   }
 
   return (
@@ -102,7 +132,11 @@ export const TakeTestView = () => {
         <div className="question__answers">
           {currentQuestion?.answers?.map((answer) => {
             return (
-              <div className="question__single-answer" key={answer.id}>
+              <div
+                className="question__single-answer"
+                key={answer.id}
+                style={{ display: "flex" }}
+              >
                 <input
                   checked={answer.checked}
                   name="answer"
@@ -133,7 +167,7 @@ export const TakeTestView = () => {
                 return (
                   <button
                     className={
-                      currentQuestion === question ? "btn-active" : "btn-nav"
+                      currentQuestion == question ? "btn-active" : "btn-nav"
                     }
                     // className={currentQuestion == question && "btn-active"}
                     key={index}
@@ -145,27 +179,26 @@ export const TakeTestView = () => {
               })}
             </div>
           </div>
-          <SmallButton onClick={submitTest}>submit test</SmallButton>
         </footer>
       </div>
 
-      {/* {questions.every((q) => q.answers.some((a) => a.checked)) && (
-        <div>
-          <h2>You've finished all the questions, you may submit the test</h2>
+      {questions.every((q) => q.answers.some((a) => a.checked)) && (
+        <>
           <SmallButton onClick={submitTest}>submit</SmallButton>
-        </div>
-      )} */}
+          <h2>You've finished all the questions, you may submit the test</h2>
+        </>
+      )}
     </main>
   );
 };
 
-const Instructions = ({ startTest, test }) => {
+const Instructions = ({ setStart, test }) => {
   return (
     <div className="test-instructions">
       <Header>test name: {test?.name}</Header>
       <Header>{test?.instructions}</Header>
       <p>Good Luck!</p>
-      <SmallButton onClick={startTest}>Begin</SmallButton>
+      <SmallButton onClick={() => setStart(true)}>Begin</SmallButton>
     </div>
   );
 };

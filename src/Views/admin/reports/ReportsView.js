@@ -7,16 +7,16 @@ import { BackendService } from "../../../service/backendService";
 export const ReportsView = () => {
   const [tests, setTests] = useState([]);
   const navigate = useNavigate();
-  const topic = useParams(); 
+  const {topic} = useParams(); 
 
   useEffect(() => {
     const service = new BackendService("quizes");
     console.log(topic);
     (async () => {
-      const data = await service.getAllAsync();
+      const data = await service.getByTopicAsync(topic);
       console.log(data);
       // console.log(data);
-      setTests(data.filter((q) => q.topic === topic.topic));
+      setTests(data);
       console.log(tests);
     })();
   }, []);

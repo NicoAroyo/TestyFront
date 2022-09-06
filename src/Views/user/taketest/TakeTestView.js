@@ -84,9 +84,7 @@ export const TakeTestView = () => {
           {
             grade += scorePerAnswer;
           }
-        
-
-        
+         
     }
     })
     console.log(grade);

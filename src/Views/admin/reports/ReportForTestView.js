@@ -55,7 +55,7 @@ export const ReportForTestView = () => {
                     return(
                         <>
                         <tr>
-                           <td> {report.student.firstName} {report?.student.firstName} </td>
+                           <td> {report.student.firstName} {report?.student.lastName} </td>
                             <td>{report.grade}</td>
                            <td>{report.grade > quiz.passingGrade ? <>Yes</> : <>No</>}</td>
                              
