@@ -11,11 +11,12 @@ import { ChooseTestView } from "./views/user/taketest/ChooseTest";
 import { TakeTestView } from "./views/user/taketest/TakeTest";
 import { EditTest } from "./views/admin/test/EditTest";
 import { EditQuestionView } from "./views/admin/question/EditQuestion";
-import { SignUpView } from "./views/SignUpView";
+import { SignUpView } from "./views/login/SignUpView";
 import { Login } from "./views/login/Login";
 import { DetailsTest } from "./views/admin/test/DetailsTest";
 import "./sass/App.scss";
 import { ReportForTestView } from "./views/admin/reports/ReportForTestView";
+import { FinishedTest } from "./views/user/taketest/FinishedTest";
 
 export const App = () => {
   return (
@@ -54,6 +55,8 @@ export const App = () => {
           path="/:topic/reports/reports-for/:id"
           element={<ReportForTestView />}
         ></Route>
+
+        <Route path="/finish-test" element={<FinishedTest />}></Route>
       </Routes>
     </>
   );

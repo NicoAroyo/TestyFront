@@ -71,7 +71,7 @@ export class BackendService {
   }
 
   #failure(response) {
-    const message = `An error has occured: ${response.status}`;
+    const message = `An error has occured: ${response}`;
     throw new Error(message);
   }
 }

@@ -5,6 +5,7 @@ import { BackendService } from "../../../service/backendService";
 import { Header } from "../../../components/Header/Header";
 import { Button, SmallButton } from "../../../components/Button/Button";
 import "../../../sass/TakeTest.scss";
+import { Modal } from "../../../components/Modal/Modal";
 
 export const TakeTestView = () => {
   const { userId, testId } = useParams();
@@ -13,16 +14,41 @@ export const TakeTestView = () => {
   const [currentQuestion, setCurrentQuestion] = useState([]);
   const [selectedAnswers, setSelectedAnswer] = useState([]);
   const [start, setStart] = useState(false);
+  const [user, setUser] = useState({});
+  const [activeQuiz, setActiveQuiz] = useState({});
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const quizService = new BackendService("quizes");
+    const userService = new BackendService("users");
+    const activeQuizService = new BackendService("active-quizes");
     (async () => {
       try {
-        const testData = await quizService.getByIdAsync(testId);
-        setTest(testData);
-        setQuestions(testData.questions);
-        setCurrentQuestion(questions[0]);
+        const activeQuizez = await activeQuizService.getAllAsync();
+        const activeQuizData = activeQuizez.find(
+          (q) => q?.quiz?._id === testId && q?.user?._id === userId
+        );
+        if (activeQuizData) {
+          setActiveQuiz(activeQuizData);
+          setTest(activeQuizData.quiz);
+          setQuestions(activeQuizData.quiz.questions);
+          setCurrentQuestion(activeQuizData.quiz.questions[0]);
+          setUser(activeQuizData.user);
+        } else {
+          const testData = await quizService.getByIdAsync(testId);
+          const userData = await userService.getByIdAsync(userId);
+          setUser(userData);
+          const activeQuizData = await activeQuizService.postAsync({
+            quiz: testData,
+            user: userData,
+          });
+          console.log(activeQuizData);
+          // setActiveQuiz(activeQuizData);
+          setTest(testData);
+          setQuestions(testData.questions);
+          setCurrentQuestion(testData.questions[0]);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -35,12 +61,15 @@ export const TakeTestView = () => {
       currentQuestion.answers.forEach((a) => (a.checked = false));
     }
     answer.checked = e.target.checked;
-    //save changes to state
-    // setCurrentQuestion({
-    //   ...currentQuestion,
-    //   answers: currentQuestion.answers,
-    // });
-    // console.log(currentQuestion);
+    try {
+      const activeQuizService = new BackendService("active-quizes");
+      await activeQuizService.patchAsync(
+        { user: user, quiz: { ...test, questions: questions } },
+        activeQuiz._id
+      );
+    } catch (error) {
+      console.error(error);
+    }
 
     setSelectedAnswer([
       ...selectedAnswers.filter((q) => q.question.id === currentQuestion.id),
@@ -49,18 +78,28 @@ export const TakeTestView = () => {
   };
 
   const submitTest = async () => {
-    const qgrade = calculateGrade();
-    const userService = new BackendService("users");
-    const user = await userService.getByIdAsync(userId);
+    try {
+      const qgrade = calculateGrade();
+      const userService = new BackendService("users");
+      const user = await userService.getByIdAsync(userId);
 
-    const reportsService = new BackendService("reports");
-    await reportsService.postAsync({
-      grade: qgrade,
-      student: user,
-      quizId: testId,
-      date: Date.now(),
-    });
-    console.log("congratulations");
+      const reportsService = new BackendService("reports");
+      await reportsService.postAsync({
+        grade: qgrade,
+        student: user,
+        quizId: testId,
+        date: Date.now(),
+      });
+      console.log("congratulations");
+
+      const activeQuizService = new BackendService("active-quizes");
+      await activeQuizService.deleteAsync(activeQuiz._id);
+
+      setOpenModal(false);
+      navigate("/finish-test");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const calculateGrade = () => {
@@ -96,6 +135,14 @@ export const TakeTestView = () => {
 
   return (
     <main className="exam">
+      <Modal
+        display={openModal}
+        confirm={submitTest}
+        cancel={() => setOpenModal(false)}
+        content={"Are you sure you want to submit the test?"}
+        header={"Submit Test"}
+        buttonContent={"Submit"}
+      ></Modal>
       <Header>test name: {test?.name}</Header>
       <div className="exam__question">
         <h2 className="question__content">{currentQuestion?.content}</h2>
@@ -145,7 +192,9 @@ export const TakeTestView = () => {
               })}
             </div>
           </div>
-          <SmallButton onClick={submitTest}>submit test</SmallButton>
+          <SmallButton onClick={() => setOpenModal(true)}>
+            submit test
+          </SmallButton>
         </footer>
       </div>
 

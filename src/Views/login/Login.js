@@ -14,15 +14,16 @@ export const Login = () => {
     try {
       const { user } = await auth.loginUser({ email, password });
 
-      if (user.isAdmin) {
+      if (user?.isAdmin) {
         navigate(`/admin/${user._id}`);
-      } else if (!user.isAdmin) {
+      } else if (!user?.isAdmin) {
         navigate(`/choose-test/${user._id}`);
       } else {
         throw new Error("Invalid Credentials");
       }
     } catch (error) {
-      alert(error);
+      console.error(error);
+      alert("Invalid Credentials");
     }
   };
 
@@ -33,7 +34,7 @@ export const Login = () => {
 
   return (
     <div className="login-wrapper">
-      <form className="login">
+      <div className="login">
         <h2>Login to your account</h2>
 
         <div className="form-group">
@@ -54,7 +55,7 @@ export const Login = () => {
           <button onClick={authenticate}>Login</button>
           <button onClick={signUp}>Sign Up</button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 export const TakeTestView = () => {
-  const {  userId ,  testId} = useParams();
+  const { userId, testId } = useParams();
   const [test, setTest] = useState();
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState([]);
@@ -28,28 +28,33 @@ export const TakeTestView = () => {
     if (currentQuestion.type === "singleChoice") {
       //uncheck all others
       currentQuestion.answers.forEach((a) => (a.checked = false));
-      
     }
 
     answer.checked = e.target.checked;
-
-    
 
     //save changes to state
     setCurrentQuestion({
       ...currentQuestion,
       answers: currentQuestion.answers,
     });
-    setSelectedAnswer([...selectedAnswers.filter((q) => q.question.id === currentQuestion.id), {question : currentQuestion , answer : answer}]);
+    setSelectedAnswer([
+      ...selectedAnswers.filter((q) => q.question.id === currentQuestion.id),
+      { question: currentQuestion, answer: answer },
+    ]);
   };
 
-  const submitTest = async() => {
+  const submitTest = async () => {
     console.log(selectedAnswers);
-    const qgrade = calculateGrade(); 
+    const qgrade = calculateGrade();
     console.log(qgrade);
-    const report = {grade :  qgrade , studentId : userId , quizId : testId , date : Date.now() }
+    const report = {
+      grade: qgrade,
+      studentId: userId,
+      quizId: testId,
+      date: Date.now(),
+    };
     console.log(report);
-    const service = new BackendService("reports"); 
+    const service = new BackendService("reports");
     try {
       await service.postAsync(report);
     } catch (error) {
@@ -60,38 +65,29 @@ export const TakeTestView = () => {
 
   const calculateGrade = () => {
     console.log(selectedAnswers);
-    let grade = 0; 
+    let grade = 0;
     const scorePerQuestion = 100 / questions.length;
-    selectedAnswers.forEach(q => {
-      if(q.question.type === "singleChoice"){
-      if(q.answer.isCorrect)
-      {
-        grade += scorePerQuestion; 
-      }
-    }
-      else 
-      {
+    selectedAnswers.forEach((q) => {
+      if (q.question.type === "singleChoice") {
+        if (q.answer.isCorrect) {
+          grade += scorePerQuestion;
+        }
+      } else {
         let scorePerAnswer = scorePerQuestion;
-        let amountOfCorrectAnswers = 0; 
-        q.question.answers.forEach(a => {
-          if(a.isCorrect
-            )
-            amountOfCorrectAnswers += 1;
-        })
-        scorePerAnswer = scorePerAnswer/amountOfCorrectAnswers;
-        
-          if(q.answer.isCorrect)
-          {
-            grade += scorePerAnswer;
-          }
-        
+        let amountOfCorrectAnswers = 0;
+        q.question.answers.forEach((a) => {
+          if (a.isCorrect) amountOfCorrectAnswers += 1;
+        });
+        scorePerAnswer = scorePerAnswer / amountOfCorrectAnswers;
 
-        
-    }
-    })
+        if (q.answer.isCorrect) {
+          grade += scorePerAnswer;
+        }
+      }
+    });
     console.log(grade);
-    return grade; 
-  }
+    return grade;
+  };
 
   return (
     <>

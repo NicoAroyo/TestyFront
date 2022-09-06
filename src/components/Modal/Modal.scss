@@ -8,7 +8,9 @@
   width: 400px;
   height: 200px;
   border: 2px solid #000;
-  box-shadow: 24;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   padding: 4px;
   background-color: white;
 
@@ -20,12 +22,26 @@
   button {
     justify-self: flex-end;
   }
+}
 
-  backdrop-filter: blur(8px);
+.visible {
+  animation: 0.4s popup ease;
+
+  @keyframes popup {
+    0% {
+      // transform: scale(0.2);
+      visibility: collapse;
+    }
+    100% {
+      // transform: scale(1);
+      visibility: visible;
+    }
+  }
 }
 
 .hidden {
-  visibility: hidden;
+  opacity: 0;
+  visibility: collapse;
 }
 
 .modal__container {
