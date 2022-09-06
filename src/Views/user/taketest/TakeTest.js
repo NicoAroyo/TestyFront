@@ -41,7 +41,7 @@ export const TakeTest = () => {
         setTest(activeQuizData.quiz);
         setQuestions(activeQuizData.quiz.questions);
         setCurrentQuestion(activeQuizData.quiz.questions[0]);
-        setUser(activeQuizData.user);
+        setUser(activeQuiz.user);
       } catch (error) {
         console.error(error);
       }
