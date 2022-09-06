@@ -3,12 +3,16 @@ import { useParams , useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { BackendService } from '../../../service/backendService'
+import { Header } from '../../../components/Header/Header'
+import { Table } from '../../../components/Table/Table'
+import { Button } from '../../../components/Button/Button'
 
 export const ReportForTestView = () => {
 
     const {topic ,  id}= useParams();
     const [reports,setReports] = useState([]);
     const [quiz,setQuiz] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         
@@ -33,10 +37,9 @@ export const ReportForTestView = () => {
 
   return (
     <> 
-    <div> reports for : {quiz?.name}</div>
-    
-    <table>
-        <thead>
+    <Header> reports for : {quiz?.name} </Header>
+    <Table>
+    <thead>
             <tr>
                 <th>
                     Name
@@ -64,9 +67,9 @@ export const ReportForTestView = () => {
                     )
                 })          
             }
-     
         </tbody>
-    </table>
+    </Table>
+    <Button onClick={() => navigate(-1)}> Back </Button>
     </>
   )
 }

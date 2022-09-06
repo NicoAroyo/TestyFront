@@ -95,7 +95,7 @@ export const TakeTestView = () => {
             addToGrade += scorePerAnswer;
           }
           else{
-            addToGrade-= scorePerAnswer;
+            addToGrade -= scorePerAnswer;
           }       
           
           if(addToGrade > 0)
