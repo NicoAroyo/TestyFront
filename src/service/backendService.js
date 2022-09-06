@@ -33,6 +33,15 @@ export class BackendService {
     }
   }
 
+  async getByQnSAsync(questionId , studentId) {
+    const response = await fetch(`${this.#url}QnS/${questionId}/${studentId}`);
+    if (response.ok) {
+      return await this.#success(response);
+    } else {
+      this.#failure(response);
+    }
+  }
+
   async postAsync(item) {
     return fetch(this.#url, {
       method: "POST",
