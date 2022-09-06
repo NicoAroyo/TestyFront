@@ -7,7 +7,7 @@ import { Button, SmallButton } from "../../../components/Button/Button";
 import "../../../sass/TakeTest.scss";
 import { Modal } from "../../../components/Modal/Modal";
 
-export const TakeTestView = () => {
+export const TakeTest = () => {
   const { userId, testId } = useParams();
   const [test, setTest] = useState();
   const [questions, setQuestions] = useState([]);
@@ -25,7 +25,6 @@ export const TakeTestView = () => {
     const activeQuizService = new BackendService("active-quizes");
     (async () => {
       try {
-<<<<<<< HEAD
         const activeQuizez = await activeQuizService.getAllAsync();
         const activeQuizData = activeQuizez.find(
           (q) => q?.quiz?._id === testId && q?.user?._id === userId
@@ -45,31 +44,24 @@ export const TakeTestView = () => {
             user: userData,
           });
           console.log(activeQuizData);
-          // setActiveQuiz(activeQuizData);
-          setTest(testData);
-          setQuestions(testData.questions);
-          setCurrentQuestion(testData.questions[0]);
+          setActiveQuiz(activeQuizData);
+          setTest(activeQuizData.quiz);
+          setQuestions(activeQuizData.quiz.questions);
+          setCurrentQuestion(activeQuizData.quiz.questions[0]);
         }
-=======
-        const data = await quizService.getByIdAsync(testId);
-        setTest(data);
-        setQuestions(data.questions);
-        setCurrentQuestion(questions[0]);
->>>>>>> 0e0a5ba866cdef583253c5c4cd7e129c3ef62713
       } catch (error) {
         console.error(error);
       }
     })();
   }, []);
 
-  const selectAnswer = (e, answer) => {
+  const selectAnswer = async (e, answer) => {
     if (currentQuestion.type === "singleChoice") {
       //uncheck all others
       currentQuestion.answers.forEach((a) => (a.checked = false));
     }
 
     answer.checked = e.target.checked;
-<<<<<<< HEAD
     try {
       const activeQuizService = new BackendService("active-quizes");
       await activeQuizService.patchAsync(
@@ -79,14 +71,6 @@ export const TakeTestView = () => {
     } catch (error) {
       console.error(error);
     }
-=======
-
-    //save changes to state
-    setCurrentQuestion({
-      ...currentQuestion,
-      answers: currentQuestion.answers,
-    });
->>>>>>> 0e0a5ba866cdef583253c5c4cd7e129c3ef62713
 
     setSelectedAnswer([
       ...selectedAnswers.filter((q) => q.question.id === currentQuestion.id),
@@ -95,7 +79,6 @@ export const TakeTestView = () => {
   };
 
   const submitTest = async () => {
-<<<<<<< HEAD
     try {
       const qgrade = calculateGrade();
       const userService = new BackendService("users");
@@ -118,8 +101,6 @@ export const TakeTestView = () => {
     } catch (error) {
       console.error(error);
     }
-=======
-    console.log(selectedAnswers);
     const qgrade = calculateGrade();
     const userService = new BackendService("users");
     const user = await userService.getByIdAsync(userId);
@@ -134,49 +115,40 @@ export const TakeTestView = () => {
     const service = new BackendService("reports");
     await service.postAsync(report);
     console.log("congratulations");
->>>>>>> 0e0a5ba866cdef583253c5c4cd7e129c3ef62713
   };
 
   const calculateGrade = () => {
     console.log(selectedAnswers);
-    let grade = 0; 
+    let grade = 0;
     const scorePerQuestion = 100 / questions.length;
-    selectedAnswers.forEach(q => {
-      if(q.question.type === "singleChoice"){
-      if(q.answer.isCorrect)
-      {
-        grade += scorePerQuestion; 
-      }
-    }
-      else 
-      {
+    selectedAnswers.forEach((q) => {
+      if (q.question.type === "singleChoice") {
+        if (q.answer.isCorrect) {
+          grade += scorePerQuestion;
+        }
+      } else {
         let scorePerAnswer = scorePerQuestion;
-        let amountOfCorrectAnswers = 0; 
-        q.question.answers.forEach(a => {
-          if(a.isCorrect
-            )
-            amountOfCorrectAnswers += 1;
-        })
-        scorePerAnswer = scorePerAnswer/amountOfCorrectAnswers;
+        let amountOfCorrectAnswers = 0;
+        q.question.answers.forEach((a) => {
+          if (a.isCorrect) amountOfCorrectAnswers += 1;
+        });
+        scorePerAnswer = scorePerAnswer / amountOfCorrectAnswers;
         let addToGrade = 0;
-        
-          if(q.answer.isCorrect)
-          {
-            addToGrade += scorePerAnswer;
-          }
-          else{
-            addToGrade -= scorePerAnswer;
-          }       
-          
-          if(addToGrade > 0)
-          {
-            grade += addToGrade; 
-          }
-    }
-    })
+
+        if (q.answer.isCorrect) {
+          addToGrade += scorePerAnswer;
+        } else {
+          addToGrade -= scorePerAnswer;
+        }
+
+        if (addToGrade > 0) {
+          grade += addToGrade;
+        }
+      }
+    });
     console.log(grade);
-    return grade; 
-  }
+    return grade;
+  };
 
   //QUESTION NAVIGATION
   const nextQuestion = () => {
@@ -257,21 +229,18 @@ export const TakeTestView = () => {
               })}
             </div>
           </div>
-<<<<<<< HEAD
           <SmallButton onClick={() => setOpenModal(true)}>
             submit test
           </SmallButton>
-=======
->>>>>>> 0e0a5ba866cdef583253c5c4cd7e129c3ef62713
         </footer>
       </div>
 
-      {questions.every((q) => q.answers.some((a) => a.checked)) && (
+      {/* {questions.every((q) => q.answers.some((a) => a.checked)) && (
         <>
           <SmallButton onClick={submitTest}>submit</SmallButton>
           <h2>You've finished all the questions, you may submit the test</h2>
         </>
-      )}
+      )} */}
     </main>
   );
 };
