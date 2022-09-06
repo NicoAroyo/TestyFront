@@ -74,6 +74,7 @@ export const TakeTestView = () => {
         }
       } else {
         let scorePerAnswer = scorePerQuestion;
+<<<<<<< HEAD
         let amountOfCorrectAnswers = 0;
         q.question.answers.forEach((a) => {
           if (a.isCorrect) amountOfCorrectAnswers += 1;
@@ -85,6 +86,23 @@ export const TakeTestView = () => {
         }
       }
     });
+=======
+        let amountOfCorrectAnswers = 0; 
+        q.question.answers.forEach(a => {
+          if(a.isCorrect
+            )
+            amountOfCorrectAnswers += 1;
+        })
+        scorePerAnswer = scorePerAnswer/amountOfCorrectAnswers;
+        
+          if(q.answer.isCorrect)
+          {
+            grade += scorePerAnswer;
+          }
+         
+    }
+    })
+>>>>>>> 0e0a5ba866cdef583253c5c4cd7e129c3ef62713
     console.log(grade);
     return grade;
   };
