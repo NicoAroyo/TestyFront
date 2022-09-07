@@ -100,7 +100,7 @@ const Question = ({ question, deleteQuestion }) => {
         content={modalText}
       ></Modal>
       <tr key={question._id} onClick={() => setShowDetails(!showDetails)}>
-        <td>{question.content}</td>
+        <td className="keep-linebreak">{question.content}</td>
         <td>{question.type}</td>
         <td className="question__button-container">
           <SmallButton onClick={openModal}>delete</SmallButton>
@@ -116,7 +116,7 @@ const Question = ({ question, deleteQuestion }) => {
               <h4>answers:</h4>
               {question.answers.map((answer, ind) => {
                 return (
-                  <p key={ind}>
+                  <p className="keep-linebreak" key={ind}>
                     {ind + 1}. {answer.content}
                   </p>
                 );

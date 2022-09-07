@@ -87,6 +87,18 @@
   .questions__answers {
     border: 1px solid black;
     padding: 10px;
+    margin: 5px 0;
+
+    .content {
+      margin-bottom: 15px;
+      border-bottom: 1px solid $dark-pink;
+      font-weight: 200;
+      font-family: $secondary-font;
+    }
+
+    .answer {
+      margin: 5px 0;
+    }
   }
 }
 

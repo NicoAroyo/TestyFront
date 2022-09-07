@@ -169,9 +169,11 @@ export const TakeTest = () => {
         header={"Submit Test"}
         buttonContent={"Submit"}
       ></Modal>
-      <Header>test name: {test?.name}</Header>
+      <Header> {test?.name}</Header>
       <div className="exam__question">
-        <h2 className="question__content">{currentQuestion?.content}</h2>
+        <h4 className="question__content keep-linebreak">
+          {currentQuestion?.content}
+        </h4>
         <div className="question__answers">
           {currentQuestion?.answers?.map((answer) => {
             return (
@@ -190,7 +192,7 @@ export const TakeTest = () => {
                   }
                   onChange={(e) => selectAnswer(e, answer)}
                 ></input>
-                <p>{answer.content}</p>
+                <p className="keep-linebreak">{answer.content}</p>
               </div>
             );
           })}
@@ -241,8 +243,8 @@ export const TakeTest = () => {
 const Instructions = ({ setStart, test }) => {
   return (
     <div className="test-instructions">
-      <Header>test name: {test?.name}</Header>
-      <Header>{test?.instructions}</Header>
+      <Header>{test?.name}</Header>
+      <p className="instructions keep-linebreak">{test?.instructions}</p>
       <p>Good Luck!</p>
       <SmallButton onClick={() => setStart(true)}>Begin</SmallButton>
     </div>

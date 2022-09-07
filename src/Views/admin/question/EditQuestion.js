@@ -62,7 +62,7 @@ export const EditQuestionView = () => {
       </nav>
 
       <main className="add">
-        <h3>Edit Question: "{originalQuestion.content}"</h3>
+        <h3>Edit Question:</h3>
         <div className="add__form">
           <div className="add__form-group">
             <div className="add__content">

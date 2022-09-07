@@ -22,7 +22,7 @@ export const EditTest = () => {
       const testData = await quizService.getByIdAsync(id);
       setTest(testData);
       setOriginalTest(testData);
-      const questionsData = await questionService.getAllAsync();
+      const questionsData = await questionService.getByTopicAsync(topic);
       setQuestions(questionsData);
       setSelectedQuestions(testData.questions);
     })();
@@ -144,19 +144,23 @@ export const EditTest = () => {
                 return (
                   <div key={question._id} className="add-test__answers-group">
                     <Input
-                      checked={
-                        selectedQuestions.some((q) => q === question) === true
-                      }
                       type={"checkbox"}
+                      checked={
+                        selectedQuestions.some(
+                          (q) => q._id === question._id
+                        ) === true
+                      }
                       onChange={(e) =>
                         selectQuestion(e.target.checked, question)
                       }
                     ></Input>
                     <div className="questions__answers">
-                      <p>{question.content}</p>
+                      <h4 className="keep-linebreak content">
+                        {question.content}
+                      </h4>
                       {question.answers.map((answer, ind) => {
                         return (
-                          <p key={ind}>
+                          <p className="keep-linebreak answer" key={ind}>
                             {ind + 1}. {answer.content}
                           </p>
                         );

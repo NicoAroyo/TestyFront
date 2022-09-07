@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 import "../../../sass/DetailsTest.scss";
 import { Label } from "../../../components/Label/Label";
+import { Button } from "../../../components/Button/Button";
 
 export const DetailsTest = () => {
   const { id, topic } = useParams();
@@ -19,6 +20,7 @@ export const DetailsTest = () => {
 
   return (
     <>
+      <Button onClick={() => navigate(-1)}>Return</Button>
       <main className="test__details__main">
         <div className="details__main">
           <Label>topic: {topic}</Label>
@@ -35,13 +37,13 @@ export const DetailsTest = () => {
           {test?.questions?.map((q, ind) => {
             return (
               <div className="question__details" key={q._id}>
-                <h4>
+                <h4 className="keep-linebreak">
                   {ind + 1}:{q.content}
                 </h4>
                 {q?.answers?.map((a) => {
                   return (
                     <div key={a.id}>
-                      <p>
+                      <p className="keep-linebreak">
                         {a.id}: {a.content}
                       </p>
                     </div>
