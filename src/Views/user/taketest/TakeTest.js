@@ -6,6 +6,7 @@ import { Header } from "../../../components/Header/Header";
 import { Button, SmallButton } from "../../../components/Button/Button";
 import "../../../sass/TakeTest.scss";
 import { Modal } from "../../../components/Modal/Modal";
+import { shuffle } from "../../../utils/core";
 
 export const TakeTest = () => {
   const { userId, testId } = useParams();
@@ -18,35 +19,6 @@ export const TakeTest = () => {
   const [activeQuiz, setActiveQuiz] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const quizService = new BackendService("quizes");
-    const userService = new BackendService("users");
-    const activeQuizService = new BackendService("active-quizes");
-    (async () => {
-      try {
-        const activeQuizez = await activeQuizService.getAllAsync();
-        const activeQuizData = activeQuizez.find(
-          (q) => q?.quiz?._id === testId && q?.user?._id === userId
-        );
-        if (!activeQuizData) {
-          const testData = await quizService.getByIdAsync(testId);
-          const userData = await userService.getByIdAsync(userId);
-          const activeQuizData = await activeQuizService.postAsync({
-            quiz: testData,
-            user: userData,
-          });
-        }
-        setActiveQuiz(activeQuizData);
-        setTest(activeQuizData.quiz);
-        setQuestions(activeQuizData.quiz.questions);
-        setCurrentQuestion(activeQuizData.quiz.questions[0]);
-        setUser(activeQuiz.user);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, []);
 
   const selectAnswer = async (e, answer) => {
     if (currentQuestion.type === "singleChoice") {
@@ -75,14 +47,15 @@ export const TakeTest = () => {
     try {
       const qgrade = calculateGrade();
       const userService = new BackendService("users");
-      const user = await userService.getByIdAsync(userId);
+      const userData = await userService.getByIdAsync(userId);
 
       const reportsService = new BackendService("reports");
       await reportsService.postAsync({
         grade: qgrade,
-        student: user,
+        student: userData,
         quizId: testId,
         date: Date.now(),
+        questions: activeQuiz.questions,
       });
       console.log("congratulations");
 
@@ -90,7 +63,7 @@ export const TakeTest = () => {
       await activeQuizService.deleteAsync(activeQuiz._id);
 
       setOpenModal(false);
-      navigate("/finish-test");
+      // navigate("/finish-test");
     } catch (error) {
       console.error(error);
     }
@@ -143,6 +116,48 @@ export const TakeTest = () => {
     return grade;
   };
 
+  useEffect(() => {
+    (async () => {
+      const quizService = new BackendService("quizes");
+      const userService = new BackendService("users");
+      const testData = await quizService.getByIdAsync(testId);
+      const userData = await userService.getByIdAsync(userId);
+      setTest(testData);
+      setUser(userData);
+    })();
+  }, []);
+
+  const beginTest = async () => {
+    setStart(true);
+    const activeQuizService = new BackendService("active-quizes");
+    try {
+      let activeQuizData;
+      //search if quiz is active
+      const activeQuizez = await activeQuizService.getAllAsync();
+      activeQuizData = activeQuizez.find(
+        (q) => q?.quiz?._id === testId && q?.user?._id === userId
+      );
+      //if not instantiate a new one
+      if (!activeQuizData) {
+        activeQuizData = await activeQuizService.postAsync({
+          quiz: test,
+          user: user,
+        });
+        //shuffle questions
+        setQuestions(shuffle(activeQuizData.quiz.questions));
+      } else {
+        setQuestions(activeQuizData.quiz.questions);
+      }
+      //if active quiz found dont shuffle
+      setActiveQuiz(activeQuizData);
+      setTest(activeQuizData.quiz);
+      setCurrentQuestion(activeQuizData.quiz.questions[0]);
+      setUser(activeQuizData.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   //QUESTION NAVIGATION
   const nextQuestion = () => {
     const index = questions.indexOf(currentQuestion);
@@ -156,7 +171,7 @@ export const TakeTest = () => {
   };
 
   if (!start) {
-    return <Instructions setStart={setStart} test={test} />;
+    return <Instructions beginTest={beginTest} test={test} />;
   }
 
   return (
@@ -240,13 +255,13 @@ export const TakeTest = () => {
   );
 };
 
-const Instructions = ({ setStart, test }) => {
+export const Instructions = ({ test, beginTest }) => {
   return (
     <div className="test-instructions">
       <Header>{test?.name}</Header>
       <p className="instructions keep-linebreak">{test?.instructions}</p>
       <p>Good Luck!</p>
-      <SmallButton onClick={() => setStart(true)}>Begin</SmallButton>
+      <SmallButton onClick={() => beginTest()}>Begin</SmallButton>
     </div>
   );
 };
