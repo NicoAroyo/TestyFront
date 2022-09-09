@@ -9,6 +9,7 @@ export const Modal = ({
   content,
   header,
   buttonContent,
+  showOnlyOneButton = false
 }) => {
   return (
     <div className={display ? "modal visible" : "modal hidden"}>
@@ -18,7 +19,7 @@ export const Modal = ({
       </div>
       <div className="modal__button-container">
         <Button onClick={confirm}>{buttonContent}</Button>
-        <Button onClick={cancel}>Cancel</Button>
+       {showOnlyOneButton && <Button onClick={cancel}>Cancel</Button>}
       </div>
     </div>
   );

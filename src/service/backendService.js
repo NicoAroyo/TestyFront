@@ -33,9 +33,10 @@ export class BackendService {
     }
   }
 
-  async getByQnSAsync(questionId , studentId) {
-    const response = await fetch(`${this.#url}QnS/${questionId}/${studentId}`);
+  async getByQnSAsync(quizId , studentId) {
+    const response = await fetch(`${this.#url}byQnS/${quizId}/${studentId}`);
     if (response.ok) {
+      console.log(response);
       return await this.#success(response);
     } else {
       this.#failure(response);
