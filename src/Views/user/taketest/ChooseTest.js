@@ -1,13 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { BackendService } from "../../../service/backendService";
 
 export const ChooseTestView = () => {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
   const { userId } = useParams();
 
-  const beginTest = () => {
+  const beginTest = async() => {
+    const service = new BackendService("reports"); 
+    const quizId = code;
+    const report = await service.getByQnSAsync(quizId, userId);
+    if(report === "undefined")
+    {
     navigate(`/take-test/${userId}/${code}`);
+    }
+    else 
+    {
+      console.log("not you again");
+    }
   };
 
   return (
