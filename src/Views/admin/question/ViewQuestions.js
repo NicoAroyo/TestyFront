@@ -7,13 +7,13 @@ import { Table } from "../../../components/Table/Table";
 import { Modal } from "../../../components/Modal/Modal";
 import { Pagination } from "../../../components/Pagination/Pagination";
 
-let PageSize = 6;
+let PageSize = 5;
 
 export const ManageQuestionsView = () => {
   const { topic } = useParams();
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState();
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -27,6 +27,7 @@ export const ManageQuestionsView = () => {
       try {
         const data = await questionService.getByTopicAsync(topic);
         setQuestions(data);
+        setCurrentPage(1);
       } catch (error) {
         console.error(error);
       }
@@ -58,14 +59,13 @@ export const ManageQuestionsView = () => {
         <Table>
           <thead>
             <tr>
-              <th>#</th>
               <th>Content</th>
               <th>Type</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {currentTableData.map((question) => {
+            {currentTableData?.map((question) => {
               return (
                 <Question
                   key={question._id}

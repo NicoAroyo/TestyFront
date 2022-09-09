@@ -14,3 +14,27 @@ export const shuffle = (array) => {
 
   return array;
 };
+
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+export const formatDateTime = (date) => {
+  if (!date) return "";
+  const m = new Date(date);
+  const dateString =
+    days[m.getUTCDay()] +
+    ", " +
+    m.getUTCDate() +
+    "/" +
+    m.getUTCMonth() +
+    "/" +
+    m.getUTCFullYear();
+  return dateString;
+};
