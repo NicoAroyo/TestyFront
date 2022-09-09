@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BackendService } from "../../../service/backendService";
 import { Button, SmallButton } from "../../../components/Button/Button";
 import "../../../sass/ViewQuestions.scss";
 import { Table } from "../../../components/Table/Table";
 import { Modal } from "../../../components/Modal/Modal";
+import { Pagination } from "../../../components/Pagination/Pagination";
+
+let PageSize = 6;
 
 export const ManageQuestionsView = () => {
   const { topic } = useParams();
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return questions.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
 
   useEffect(() => {
     const questionService = new BackendService("questions");
@@ -48,13 +58,14 @@ export const ManageQuestionsView = () => {
         <Table>
           <thead>
             <tr>
+              <th>#</th>
               <th>Content</th>
               <th>Type</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {questions.map((question) => {
+            {currentTableData.map((question) => {
               return (
                 <Question
                   key={question._id}
@@ -65,6 +76,12 @@ export const ManageQuestionsView = () => {
             })}
           </tbody>
         </Table>
+        <Pagination
+          currentPage={currentPage}
+          totalCount={questions.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </main>
     </>
   );
@@ -100,7 +117,11 @@ const Question = ({ question, deleteQuestion }) => {
         content={modalText}
       ></Modal>
       <tr key={question._id} onClick={() => setShowDetails(!showDetails)}>
-        <td className="keep-linebreak">{question.content}</td>
+        <td className="keep-linebreak">
+          {showDetails
+            ? question.content
+            : question.content.substring(0, 45) + "..."}
+        </td>
         <td>{question.type}</td>
         <td className="question__button-container">
           <SmallButton onClick={openModal}>delete</SmallButton>
