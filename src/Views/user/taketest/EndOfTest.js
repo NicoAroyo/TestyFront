@@ -17,10 +17,11 @@ export const EndOfTest = () => {
     const reportService = new BackendService("reports");
     (async () => {
       try {
-        const qdata = await quizService.getByIdAsync(testId);
-        const rdata = await reportService.getByIdAsync(reportId);
-        setTest(qdata);
-        setReport(rdata);
+        const quizData = await quizService.getByIdAsync(testId);
+        const reportData = await reportService.getByIdAsync(reportId);
+        // console.log(quizData, reportData);
+        setTest(quizData);
+        setReport(reportData);
       } catch (error) {
         console.error(error);
       }

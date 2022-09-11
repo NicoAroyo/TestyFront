@@ -54,7 +54,7 @@ export const TakeTest = () => {
         student: userData,
         quizId: testId,
         date: Date.now(),
-        questions: questions,
+        questions: activeQuiz.questions,
       });
       console.log("congratulations");
 
