@@ -53,7 +53,7 @@ export const App = () => {
         ></Route>
 
   
-        <Route path = "/end/:testId/:reportId" element={<EndOfTest />}> </Route>
+        <Route path = "/finish-test/:testId/:reportId" element={<EndOfTest />}> </Route>
       </Routes> 
     </>
   );

@@ -65,9 +65,9 @@ export const TakeTest = () => {
       console.log("congratulations");
 
       if (test.showAnswers) {
-        navigate(`/finish-test/${rep._id}/${test._id}`);
+        navigate(`/finish-test/${testId}/${rep._id}`);
       } else {
-        navigate(`/finish-test/${rep._id}/${test._id}`);
+        navigate(`/`);
       }
     } catch (error) {
       console.error(error);
