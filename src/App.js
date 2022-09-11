@@ -22,39 +22,33 @@ export const App = () => {
   return (
     <>
       <Routes>
+        //LOGIN
         <Route path="/" element={<Login />}></Route>
-        {/* <Route path="login" element={<Login />}></Route> */}
+        <Route path="/sign-up" element={<SignUp />}></Route>
+        //ADMIN - TESTS
         <Route path="/admin/:id" element={<AdminView />}></Route>
-
         <Route path="/:topic/tests/" element={<ViewTests />}></Route>
         <Route path="/:topic/tests/add" element={<AddTest />}></Route>
         <Route path="/:topic/tests/edit/:id" element={<EditTest />}></Route>
         {/* prettier-ignore */}
         <Route path="/:topic/tests/details/:id" element={<DetailsTest />}></Route>
-
+        //ADMIN - QUESTIONS
         {/* prettier-ignore */}
         <Route path="/:topic/questions/" element={<ManageQuestionsView />}></Route>
         {/* prettier-ignore */}
         <Route path="/:topic/questions/add" element={<AddQuestionView />}></Route>
         {/* prettier-ignore */}
         <Route path="/:topic/questions/edit/:id" element={<EditQuestionView />}></Route>
-
-        <Route path="choose-test/:userId" element={<ChooseTestView />}></Route>
-        {/* prettier-ignore */}
-        <Route path="take-test/:userId/:testId" element={<TakeTest/>}></Route>
-
+        //ADMIN - REPORTS
         <Route path="/:topic/reports/" element={<ReportsView />}></Route>
+        {/* prettier-ignore */}
+        <Route path="/:topic/reports/reports-for/:id" element={<ReportForTestView />}></Route>
+        //USER
         <Route path="choose-test/:userId" element={<ChooseTestView />}></Route>
-
-        <Route path="/sign-up" element={<SignUp />}></Route>
-        <Route
-          path="/:topic/reports/reports-for/:id"
-          element={<ReportForTestView />}
-        ></Route>
-
-  
-        <Route path = "/end/:testId/:reportId" element={<EndOfTest />}> </Route>
-      </Routes> 
+        <Route path="take-test/:userId/:testId" element={<TakeTest />}></Route>
+        {/* prettier-ignore */}
+        <Route path="/finish-test/:testId/:reportId" element={<EndOfTest />}></Route>
+      </Routes>
     </>
   );
 };
