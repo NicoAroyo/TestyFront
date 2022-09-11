@@ -8,7 +8,6 @@ import "../../../sass/TakeTest.scss";
 import { Modal } from "../../../components/Modal/Modal";
 import { shuffle } from "../../../utils/core";
 
-
 export const TakeTest = () => {
   const { userId, testId } = useParams();
   const [test, setTest] = useState();
@@ -45,12 +44,12 @@ export const TakeTest = () => {
 
   const submitTest = async () => {
     try {
-      const qgrade = calculateGrade(selectedAnswers , questions);
+      const qgrade = calculateGrade(selectedAnswers, questions);
       const userService = new BackendService("users");
       const userData = await userService.getByIdAsync(userId);
 
       const reportsService = new BackendService("reports");
-      await reportsService.postAsync({
+      const rep = await reportsService.postAsync({
         grade: qgrade,
         student: userData,
         quizId: testId,
@@ -63,26 +62,16 @@ export const TakeTest = () => {
       await activeQuizService.deleteAsync(activeQuiz._id);
 
       setOpenModal(false);
-      // navigate("/finish-test");
+      console.log("congratulations");
+
+      if (test.showAnswers) {
+        navigate(`/finish-test/${rep._id}/${test._id}`);
+      } else {
+        navigate(`/finish-test/${rep._id}/${test._id}`);
+      }
     } catch (error) {
       console.error(error);
     }
-    const qgrade = calculateGrade();
-    const userService = new BackendService("users");
-    const user = await userService.getByIdAsync(userId);
-    console.log(qgrade);
-    const report = {
-      grade: qgrade,
-      student: user,
-      quizId: testId,
-      date: Date.now(),
-    };
-    console.log(report);
-    const service = new BackendService("reports");
-   const curr = await service.postAsync(report);
-    console.log("congratulations");
-    navigate(`/end/${testId}/${curr._id}`)
-  
   };
 
   const calculateGrade = () => {
@@ -102,13 +91,13 @@ export const TakeTest = () => {
         });
         scorePerAnswer = scorePerAnswer / amountOfCorrectAnswers;
         let addToGrade = 0;
-  
+
         if (q.answer.isCorrect) {
           addToGrade += scorePerAnswer;
         } else {
           addToGrade -= scorePerAnswer;
         }
-  
+
         if (addToGrade > 0) {
           grade += addToGrade;
         }
@@ -117,7 +106,6 @@ export const TakeTest = () => {
     console.log(grade);
     return grade;
   };
-  
 
   useEffect(() => {
     (async () => {
@@ -201,7 +189,7 @@ export const TakeTest = () => {
                 style={{ display: "flex" }}
               >
                 <input
-                  checked={answer.checked}
+                  checked={answer.checked === true ? true : false}
                   name="answer"
                   type={
                     currentQuestion.type === "singleChoice"
