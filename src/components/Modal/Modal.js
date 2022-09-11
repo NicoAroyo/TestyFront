@@ -9,7 +9,7 @@ export const Modal = ({
   content,
   header,
   buttonContent,
-  showOnlyOneButton = false
+  showOnlyOneButton = true
 }) => {
   return (
     <div className={display ? "modal visible" : "modal hidden"}>
