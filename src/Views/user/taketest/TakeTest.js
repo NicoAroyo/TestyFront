@@ -7,6 +7,7 @@ import { Button, SmallButton } from "../../../components/Button/Button";
 import "../../../sass/TakeTest.scss";
 import { Modal } from "../../../components/Modal/Modal";
 import { shuffle } from "../../../utils/core";
+import { calculateGrade } from "../../../utils/calculateGrade";
 
 export const TakeTest = () => {
   const { userId, testId } = useParams();
@@ -45,7 +46,7 @@ export const TakeTest = () => {
 
   const submitTest = async () => {
     try {
-      const qgrade = calculateGrade();
+      const qgrade = calculateGrade(selectedAnswers , questions);
       const userService = new BackendService("users");
       const userData = await userService.getByIdAsync(userId);
 
@@ -79,41 +80,15 @@ export const TakeTest = () => {
     };
     console.log(report);
     const service = new BackendService("reports");
-    await service.postAsync(report);
+   const curr = await service.postAsync(report);
     console.log("congratulations");
-  };
-
-  const calculateGrade = () => {
-    console.log(selectedAnswers);
-    let grade = 0;
-    const scorePerQuestion = 100 / questions.length;
-    selectedAnswers.forEach((q) => {
-      if (q.question.type === "singleChoice") {
-        if (q.answer.isCorrect) {
-          grade += scorePerQuestion;
-        }
-      } else {
-        let scorePerAnswer = scorePerQuestion;
-        let amountOfCorrectAnswers = 0;
-        q.question.answers.forEach((a) => {
-          if (a.isCorrect) amountOfCorrectAnswers += 1;
-        });
-        scorePerAnswer = scorePerAnswer / amountOfCorrectAnswers;
-        let addToGrade = 0;
-
-        if (q.answer.isCorrect) {
-          addToGrade += scorePerAnswer;
-        } else {
-          addToGrade -= scorePerAnswer;
-        }
-
-        if (addToGrade > 0) {
-          grade += addToGrade;
-        }
-      }
-    });
-    console.log(grade);
-    return grade;
+    if(quiz.showAnswers)
+    {
+      navigate(`end/${testId}/${curr._id}`)
+    }
+    else {
+      navigate("finish-test")
+    }
   };
 
   useEffect(() => {
