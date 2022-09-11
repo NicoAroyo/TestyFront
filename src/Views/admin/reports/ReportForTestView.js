@@ -17,13 +17,13 @@ export const ReportForTestView = () => {
   const [reports, setReports] = useState([]);
   const [quiz, setQuiz] = useState();
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return reports.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  }, [currentPage, reports]);
 
   useEffect(() => {
     (async () => {
@@ -35,14 +35,15 @@ export const ReportForTestView = () => {
       console.log("QUIZ", quizData);
       console.log("REPORTS", reportsData);
       setQuiz(quizData);
-      setReports(reportsData.filter((r) => r.quizId != id));
-      setCurrentPage(1);
+      setReports(reportsData.filter((r) => r.quizId === id));
+
+      // setReports(reportsData);
     })();
   }, []);
 
   return (
     <main className="reports-for-test">
-      <Header> reports for : "{quiz?.name}" </Header>
+      <Header> reports for: "{quiz?.name}" </Header>
       <Table>
         <thead>
           <tr>
@@ -56,31 +57,29 @@ export const ReportForTestView = () => {
         <tbody>
           {currentTableData?.map((report) => {
             return (
-              <>
-                <tr>
-                  <td>
-                    {report.student.firstName} {report?.student.lastName}
-                  </td>
-                  <td>{formatDateTime(report.date)}</td>
-                  <td
-                    style={{
-                      color: report.grade > quiz.passingGrade ? "green" : "red",
-                    }}
-                  >
-                    {report.grade}
-                  </td>
-                  <td
-                    style={{
-                      color: report.grade > quiz.passingGrade ? "green" : "red",
-                    }}
-                  >
-                    {report.grade > quiz.passingGrade ? "Yes" : "No"}
-                  </td>
-                  <td>
-                    <SmallButton>View Answers</SmallButton>
-                  </td>
-                </tr>
-              </>
+              <tr>
+                <td>
+                  {report.student.firstName} {report?.student.lastName}
+                </td>
+                <td>{formatDateTime(report.date)}</td>
+                <td
+                  style={{
+                    color: report.grade > quiz.passingGrade ? "green" : "red",
+                  }}
+                >
+                  {report.grade}
+                </td>
+                <td
+                  style={{
+                    color: report.grade > quiz.passingGrade ? "green" : "red",
+                  }}
+                >
+                  {report.grade > quiz.passingGrade ? "Yes" : "No"}
+                </td>
+                <td>
+                  <SmallButton>View Answers</SmallButton>
+                </td>
+              </tr>
             );
           })}
         </tbody>
@@ -90,7 +89,7 @@ export const ReportForTestView = () => {
         totalCount={reports.length}
         pageSize={PageSize}
         onPageChange={(page) => setCurrentPage(page)}
-      />
+      ></Pagination>
       <Button onClick={() => navigate(-1)}> Back </Button>
     </main>
   );

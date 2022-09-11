@@ -13,7 +13,7 @@ export const TakeTest = () => {
   const [test, setTest] = useState();
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState([]);
-  const [selectedAnswers, setSelectedAnswer] = useState([]);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [start, setStart] = useState(false);
   const [user, setUser] = useState({});
   const [activeQuiz, setActiveQuiz] = useState({});
@@ -25,7 +25,6 @@ export const TakeTest = () => {
       //uncheck all others
       currentQuestion.answers.forEach((a) => (a.checked = false));
     }
-
     answer.checked = e.target.checked;
     try {
       const activeQuizService = new BackendService("active-quizes");
@@ -37,7 +36,7 @@ export const TakeTest = () => {
       console.error(error);
     }
 
-    setSelectedAnswer([
+    setSelectedAnswers([
       ...selectedAnswers.filter((q) => q.question.id === currentQuestion.id),
       { question: currentQuestion, answer },
     ]);
@@ -55,7 +54,7 @@ export const TakeTest = () => {
         student: userData,
         quizId: testId,
         date: Date.now(),
-        questions: activeQuiz.questions,
+        questions: questions,
       });
       console.log("congratulations");
 
