@@ -45,7 +45,7 @@ export const TakeTest = () => {
 
   const submitTest = async () => {
     try {
-      const qgrade = calculateGrade();
+      const qgrade = calculateGrade(selectedAnswers, questions);
       const userService = new BackendService("users");
       const userData = await userService.getByIdAsync(userId);
 
@@ -63,9 +63,12 @@ export const TakeTest = () => {
       await activeQuizService.deleteAsync(activeQuiz._id);
 
       setOpenModal(false);
-      // navigate("/finish-test");
       console.log("congratulations");
-      navigate(`/finish-test/${rep._id}/${test._id}`);
+      if (test.showAnswers) {
+        navigate(`/finish-test/${rep._id}/${test._id}`);
+      } else {
+        navigate(`/finish-test/${rep._id}/${test._id}`);
+      }
     } catch (error) {
       console.error(error);
     }
