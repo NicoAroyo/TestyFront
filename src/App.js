@@ -52,11 +52,9 @@ export const App = () => {
           element={<ReportForTestView />}
         ></Route>
 
-        <Route
-          path="/finish-test/:reportId/:testId"
-          element={<EndOfTest />}
-        ></Route>
-      </Routes>
+  
+        <Route path = "/end/:testId/:reportId" element={<EndOfTest />}> </Route>
+      </Routes> 
     </>
   );
 };
