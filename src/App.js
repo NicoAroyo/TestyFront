@@ -17,6 +17,7 @@ import { DetailsTest } from "./views/admin/test/DetailsTest";
 import "./sass/App.scss";
 import { ReportForTestView } from "./views/admin/reports/ReportForTestView";
 import { EndOfTest } from "./views/user/taketest/EndOfTest";
+import { AnswersView } from "./views/admin/reports/AnswersView";
 
 export const App = () => {
   return (
@@ -43,11 +44,13 @@ export const App = () => {
         <Route path="/:topic/reports/" element={<ReportsView />}></Route>
         {/* prettier-ignore */}
         <Route path="/:topic/reports/reports-for/:id" element={<ReportForTestView />}></Route>
+        <Route path="/report-answers/:reportId" element={<AnswersView/>}></Route>
         //USER
         <Route path="choose-test/:userId" element={<ChooseTestView />}></Route>
         <Route path="take-test/:userId/:testId" element={<TakeTest />}></Route>
         {/* prettier-ignore */}
         <Route path="/finish-test/:testId/:reportId" element={<EndOfTest />}></Route>
+
       </Routes>
     </>
   );
