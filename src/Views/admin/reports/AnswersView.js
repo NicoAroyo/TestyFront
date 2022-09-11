@@ -6,6 +6,7 @@ import { BackendService } from '../../../service/backendService'
 import { Header } from '../../../components/Header/Header'
 import { Table } from '../../../components/Table/Table'
 import { Label } from '../../../components/Label/Label'
+import { Input } from '../../../components/Input/Input'
 
 export const AnswersView = () => {
     const { reportId} = useParams();
@@ -43,11 +44,12 @@ export const AnswersView = () => {
                         {q?.answers.map((a) => {
                             return(
                                 
-                                <tr>
-                                    <td>{a.isCorrect ? "Yes" : "No"}</td>
-                                    <td>{a.checked ? "Yes" : "No"}</td>
+                                <tr>    
+                                    <td> <Input type="radio" checked = {a.isCorrect} disabled = {true }></Input> </td>
+                                    <td> <Input type="radio" checked = {a.checked} disabled = {true }></Input> </td>
+                                    {/* <td>{a.isCorrect ? "Yes" : "No"}</td>
+                                    <td>{a.che ? "Yes" : "No"}</td> */}
                                     <td>{a.content}</td>
-
                                 </tr>
                                 
                             )
