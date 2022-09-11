@@ -11,12 +11,12 @@ import { ChooseTestView } from "./views/user/taketest/ChooseTest";
 import { TakeTest } from "./views/user/taketest/TakeTest";
 import { EditTest } from "./views/admin/test/EditTest";
 import { EditQuestionView } from "./views/admin/question/EditQuestion";
-import { SignUpView } from "./views/login/SignUpView";
+import { SignUp } from "./views/login/SignUp";
 import { Login } from "./views/login/Login";
 import { DetailsTest } from "./views/admin/test/DetailsTest";
 import "./sass/App.scss";
 import { ReportForTestView } from "./views/admin/reports/ReportForTestView";
-import { FinishedTest } from "./views/user/taketest/FinishedTest";
+import { EndOfTest } from "./views/user/taketest/EndOfTest";
 
 export const App = () => {
   return (
@@ -46,13 +46,16 @@ export const App = () => {
         <Route path="/:topic/reports/" element={<ReportsView />}></Route>
         <Route path="choose-test/:userId" element={<ChooseTestView />}></Route>
 
-        <Route path="/sign-up" element={<SignUpView />}></Route>
+        <Route path="/sign-up" element={<SignUp />}></Route>
         <Route
           path="/:topic/reports/reports-for/:id"
           element={<ReportForTestView />}
         ></Route>
 
-        <Route path="/finish-test" element={<FinishedTest />}></Route>
+        <Route
+          path="/finish-test/:reportId/:testId"
+          element={<EndOfTest />}
+        ></Route>
       </Routes>
     </>
   );

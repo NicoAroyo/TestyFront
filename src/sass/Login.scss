@@ -2,7 +2,6 @@
 
 .login {
   width: 25vw;
-  margin: 40px auto;
   font-family: "Segoe UI", sans-serif;
   padding: 25px 25px;
   background: #151414;
@@ -81,6 +80,9 @@
 }
 
 .login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: $gray;
   height: 100vh;
 }

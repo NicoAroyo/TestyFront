@@ -27,8 +27,7 @@ export const Login = () => {
     }
   };
 
-  const signUp = (e) => {
-    e.preventDefault();
+  const signUp = () => {
     navigate("sign-up");
   };
 

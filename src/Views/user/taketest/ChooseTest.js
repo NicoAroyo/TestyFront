@@ -8,41 +8,38 @@ export const ChooseTestView = () => {
   const { userId } = useParams();
   const [openModal, setOpenModal] = useState(false);
 
-  const beginTest = async() => {
-    const service = new BackendService("reports"); 
+  const beginTest = async () => {
+    const service = new BackendService("reports");
     const quizId = code;
     const report = await service.getByQnSAsync(quizId, userId);
-    if(report === "undefined")
-    {
-    navigate(`/take-test/${userId}/${code}`);
-    }
-    else 
-    {
+    if (report === "undefined") {
+      navigate(`/take-test/${userId}/${code}`);
+    } else {
       setOpenModal(true);
     }
   };
 
   return (
     <>
-        <Modal
+      <Modal
         display={openModal}
         confirm={() => setOpenModal(false)}
         content={"You've already taken this test."}
         header={"Take test"}
         buttonContent={"Ok"}
-        showOnlyOneButton = {false}
+        showOnlyOneButton={true}
       ></Modal>
-    <div className="login-wrapper">
-      <div className="login">
-        <h2>Enter test code</h2>
+      <div className="login-wrapper">
+        <div className="login">
+          <h2>Enter test code</h2>
 
-        <div className="form-group">
-          <label htmlFor="code">Code</label>
-          <input onChange={(e) => setCode(e.target.value)}></input>
+          <div className="form-group">
+            <label htmlFor="code">Code</label>
+            <input onChange={(e) => setCode(e.target.value)}></input>
+          </div>
+          <button onClick={beginTest}>Enter</button>
         </div>
-        <button onClick={beginTest}>Enter</button>
       </div>
-    </div>
     </>
   );
 };

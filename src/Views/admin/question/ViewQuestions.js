@@ -13,13 +13,13 @@ export const ManageQuestionsView = () => {
   const { topic } = useParams();
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return questions.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  }, [currentPage, questions]);
 
   useEffect(() => {
     const questionService = new BackendService("questions");
@@ -27,7 +27,6 @@ export const ManageQuestionsView = () => {
       try {
         const data = await questionService.getByTopicAsync(topic);
         setQuestions(data);
-        setCurrentPage(1);
       } catch (error) {
         console.error(error);
       }
@@ -37,9 +36,9 @@ export const ManageQuestionsView = () => {
   const deleteQuestion = async (e, id) => {
     e.stopPropagation();
     const questionService = new BackendService("questions");
-    setQuestions(questions.filter((q) => q._id !== id));
     try {
       await questionService.deleteAsync(id);
+      setQuestions(questions.filter((q) => q._id !== id));
     } catch (error) {
       console.error(error);
     }

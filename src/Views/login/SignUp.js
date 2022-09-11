@@ -3,25 +3,23 @@ import { BackendService } from "../../service/backendService";
 import { useNavigate } from "react-router-dom";
 import { AuthenticationService } from "../../service/authenticationService";
 import "../../sass/Login.scss";
+import { Modal } from "../../components/Modal/Modal";
 
-export const SignUpView = () => {
+export const SignUp = () => {
   const navigate = useNavigate();
-  const [newUser, setUser] = useState();
+  const [newUser, setUser] = useState({});
+  const [open, setOpen] = useState(false);
 
   const submitForm = async (e) => {
-    e.preventDefault();
-    console.log("hi");
-    console.log(newUser);
     try {
       const auth = new AuthenticationService();
       const response = await auth.signUpUser({ email: newUser.email });
-      console.log(response);
       if (response.exists) {
         alert("E-mail taken");
       } else {
         const service = new BackendService("users");
-        const res = await service.postAsync(newUser);
-        console.log(res);
+        await service.postAsync(newUser);
+        setOpen(true);
       }
     } catch (error) {
       console.error(error);
@@ -30,8 +28,15 @@ export const SignUpView = () => {
 
   return (
     <>
+      <Modal
+        display={open}
+        showOnlyOneButton={true}
+        confirm={() => navigate("/")}
+        header={"Signed up succesfully"}
+        buttonContent={"Ok"}
+      ></Modal>
       <div className="login-wrapper">
-        <form className="login">
+        <div className="login">
           <h2>Sign Up</h2>
 
           <div className="form-group">
@@ -69,10 +74,10 @@ export const SignUpView = () => {
             ></input>
           </div>
           <div className="login-button-container">
-            <button onClick={(e) => submitForm(e)}>Sign Up</button>
+            <button onClick={() => submitForm()}>Sign Up</button>
             <button onClick={() => navigate("/")}>Cancel</button>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

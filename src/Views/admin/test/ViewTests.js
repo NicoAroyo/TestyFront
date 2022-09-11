@@ -5,27 +5,27 @@ import { Button, SmallButton } from "../../../components/Button/Button";
 import "../../../sass/ViewQuestions.scss";
 import { Table } from "../../../components/Table/Table";
 import { Modal } from "../../../components/Modal/Modal";
+import { Pagination } from "@mui/material";
 
 let PageSize = 5;
 
 export const ViewTests = () => {
   const { topic } = useParams();
   const [tests, setTests] = useState([]);
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return tests.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  }, [currentPage, tests]);
 
   useEffect(() => {
     const service = new BackendService("quizes");
     (async () => {
       const data = await service.getByTopicAsync(topic);
       setTests(data);
-      setCurrentPage(1);
     })();
   }, []);
 
@@ -69,6 +69,12 @@ export const ViewTests = () => {
             })}
           </tbody>
         </Table>
+        <Pagination
+          currentPage={currentPage}
+          totalCount={tests.length}
+          pageSize={PageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+        ></Pagination>
       </main>
     </>
   );

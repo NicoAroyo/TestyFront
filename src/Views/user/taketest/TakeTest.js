@@ -50,7 +50,7 @@ export const TakeTest = () => {
       const userData = await userService.getByIdAsync(userId);
 
       const reportsService = new BackendService("reports");
-      await reportsService.postAsync({
+      const rep = await reportsService.postAsync({
         grade: qgrade,
         student: userData,
         quizId: testId,
@@ -64,23 +64,11 @@ export const TakeTest = () => {
 
       setOpenModal(false);
       // navigate("/finish-test");
+      console.log("congratulations");
+      navigate(`/finish-test/${rep._id}/${test._id}`);
     } catch (error) {
       console.error(error);
     }
-    const qgrade = calculateGrade();
-    const userService = new BackendService("users");
-    const user = await userService.getByIdAsync(userId);
-    console.log(qgrade);
-    const report = {
-      grade: qgrade,
-      student: user,
-      quizId: testId,
-      date: Date.now(),
-    };
-    console.log(report);
-    const service = new BackendService("reports");
-    await service.postAsync(report);
-    console.log("congratulations");
   };
 
   const calculateGrade = () => {
@@ -198,7 +186,7 @@ export const TakeTest = () => {
                 style={{ display: "flex" }}
               >
                 <input
-                  checked={answer.checked}
+                  checked={answer.checked === true ? true : false}
                   name="answer"
                   type={
                     currentQuestion.type === "singleChoice"
