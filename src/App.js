@@ -45,10 +45,23 @@ export const App = () => {
         <Route path="/:topic/reports/reports-for/:id" element={<ReportForTestView />}></Route>
         //USER
         <Route path="choose-test/:userId" element={<ChooseTestView />}></Route>
+<<<<<<< HEAD
+
+        <Route path="/sign-up" element={<SignUp />}></Route>
+        <Route
+          path="/:topic/reports/reports-for/:id"
+          element={<ReportForTestView />}
+        ></Route>
+
+  
+        <Route path = "/finish-test/:testId/:reportId" element={<EndOfTest />}> </Route>
+      </Routes> 
+=======
         <Route path="take-test/:userId/:testId" element={<TakeTest />}></Route>
         {/* prettier-ignore */}
         <Route path="/finish-test/:testId/:reportId" element={<EndOfTest />}></Route>
       </Routes>
+>>>>>>> 1675f9cc429ba8d28a3f4c0e69aa5152eaf5ebbb
     </>
   );
 };

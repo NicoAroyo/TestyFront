@@ -31,7 +31,7 @@ export const EndOfTest = () => {
   return (
     <div style={{ margin: "20px 40px" }}>
       <Header>
-        {report?.grade > test?.passingGrade ? test?.passText : test?.failText}
+        {report?.grade >= test?.passingGrade ? test?.passText : test?.failText}
       </Header>
       <SmallButton onClick={() => navigate("/")}>Ok</SmallButton>
     </div>
