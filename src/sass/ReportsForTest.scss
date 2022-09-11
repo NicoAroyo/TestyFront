@@ -1,0 +1,12 @@
+@import "./variables.scss";
+
+.reports-for-test {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .btn {
+    margin-top: 20px;
+  }
+}

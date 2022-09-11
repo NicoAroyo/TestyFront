@@ -6,32 +6,29 @@ import { BackendService } from "../../../service/backendService";
 import { Table } from "../../../components/Table/Table";
 import { Button, SmallButton } from "../../../components/Button/Button";
 import { Header } from "../../../components/Header/Header";
+import "../../../sass/ReportsView.scss";
 
 export const ReportsView = () => {
   const [tests, setTests] = useState([]);
   const navigate = useNavigate();
-  const {topic} = useParams(); 
+  const { topic } = useParams();
 
   useEffect(() => {
     const service = new BackendService("quizes");
-    console.log(topic);
     (async () => {
       const data = await service.getByTopicAsync(topic);
-      console.log(data);
-      // console.log(data);
       setTests(data);
-      console.log(tests);
     })();
   }, []);
   return (
-    <>
+    <main className="reports">
       <Header>Choose a test to see reports for</Header>
       <div>
         <Table>
           <thead>
             <tr>
-            <th>Test</th>
-            <th>Go to test</th>
+              <th>Test</th>
+              <th>Go to test</th>
             </tr>
           </thead>
           <tbody>
@@ -55,6 +52,6 @@ export const ReportsView = () => {
         </Table>
         <Button onClick={() => navigate(-1)}>Back</Button>
       </div>
-    </>
+    </main>
   );
 };

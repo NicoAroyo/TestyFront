@@ -1,75 +1,97 @@
-import React from 'react'
-import { useParams , useNavigate} from 'react-router-dom' 
-import { useState } from 'react'
-import { useEffect } from 'react'
-import { BackendService } from '../../../service/backendService'
-import { Header } from '../../../components/Header/Header'
-import { Table } from '../../../components/Table/Table'
-import { Button } from '../../../components/Button/Button'
+import React, { useMemo } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import { BackendService } from "../../../service/backendService";
+import { Header } from "../../../components/Header/Header";
+import { Table } from "../../../components/Table/Table";
+import { Button, SmallButton } from "../../../components/Button/Button";
+import "../../../sass/ReportsForTest.scss";
+import { formatDateTime } from "../../../utils/core";
+import { Pagination } from "../../../components/Pagination/Pagination";
+
+let PageSize = 8;
 
 export const ReportForTestView = () => {
+  const { id } = useParams();
+  const [reports, setReports] = useState([]);
+  const [quiz, setQuiz] = useState();
+  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState();
 
-    const {topic ,  id}= useParams();
-    const [reports,setReports] = useState([]);
-    const [quiz,setQuiz] = useState();
-    const navigate = useNavigate();
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return reports.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
 
-    useEffect(() => {
-        
-        (async ()=>{
+  useEffect(() => {
+    (async () => {
+      const reportsService = new BackendService("reports");
+      const quizService = new BackendService("quizes");
 
-            console.log("hi");
-            console.log(id);
-        const service = new BackendService("reports");
-        const qServce = new BackendService("quizes");
-        console.log(topic);
-        console.log("Beeeeee");
-
-        const data = await service.getAllAsync(); 
-        const qData = await qServce.getByIdAsync(id);
-        console.log("QUIZ",qData);
-        console.log("REPORTS",data);
-        setQuiz(qData);
-        setReports(data.filter(r => r.quizId != id));
-        //setReports(data);
+      const reportsData = await reportsService.getAllAsync();
+      const quizData = await quizService.getByIdAsync(id);
+      console.log("QUIZ", quizData);
+      console.log("REPORTS", reportsData);
+      setQuiz(quizData);
+      setReports(reportsData.filter((r) => r.quizId != id));
+      setCurrentPage(1);
     })();
-    }, []);
+  }, []);
 
   return (
-    <> 
-    <Header> reports for : {quiz?.name} </Header>
-    <Table>
-    <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Grade
-                </th>
-                <th>
-                    Passed
-                </th>
-            </tr>
+    <main className="reports-for-test">
+      <Header> reports for : "{quiz?.name}" </Header>
+      <Table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Grade</th>
+            <th>Passed</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
-            {
-                reports?.map((report) =>  {
-                    return(
-                        <>
-                        <tr>
-                           <td> {report.student.firstName} {report?.student.lastName} </td>
-                            <td>{report.grade}</td>
-                           <td>{report.grade > quiz.passingGrade ? <>Yes</> : <>No</>}</td>
-                             
-                        </tr>
-                        </>
-                    )
-                })          
-            }
+          {currentTableData?.map((report) => {
+            return (
+              <>
+                <tr>
+                  <td>
+                    {report.student.firstName} {report?.student.lastName}
+                  </td>
+                  <td>{formatDateTime(report.date)}</td>
+                  <td
+                    style={{
+                      color: report.grade > quiz.passingGrade ? "green" : "red",
+                    }}
+                  >
+                    {report.grade}
+                  </td>
+                  <td
+                    style={{
+                      color: report.grade > quiz.passingGrade ? "green" : "red",
+                    }}
+                  >
+                    {report.grade > quiz.passingGrade ? "Yes" : "No"}
+                  </td>
+                  <td>
+                    <SmallButton>View Answers</SmallButton>
+                  </td>
+                </tr>
+              </>
+            );
+          })}
         </tbody>
-    </Table>
-    <Button onClick={() => navigate(-1)}> Back </Button>
-    </>
-  )
-}
+      </Table>
+      <Pagination
+        currentPage={currentPage}
+        totalCount={reports.length}
+        pageSize={PageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
+      <Button onClick={() => navigate(-1)}> Back </Button>
+    </main>
+  );
+};
