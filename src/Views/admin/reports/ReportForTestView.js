@@ -77,7 +77,7 @@ export const ReportForTestView = () => {
                   {report.grade > quiz.passingGrade ? "Yes" : "No"}
                 </td>
                 <td>
-                  <SmallButton>View Answers</SmallButton>
+                  <SmallButton onClick={() => navigate(`/report-answers/${report._id}`)}>View Answers</SmallButton>
                 </td>
               </tr>
             );
